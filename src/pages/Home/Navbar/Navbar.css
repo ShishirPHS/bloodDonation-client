@@ -25,3 +25,10 @@
 .navbar ul li a:active {
   background: none !important;
 }
+
+/* for responsive */
+@media (min-width: 320px) and (max-width: 1023.98px) {
+  .navbar ul li {
+    padding: 2px 0;
+  }
+}
