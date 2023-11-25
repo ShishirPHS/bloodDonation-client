@@ -1,26 +1,29 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
   const navLinks = (
     <>
       <li>
-        <NavLink>Home</NavLink>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="donation-requests">Donation Requests</NavLink>
+        <NavLink to="/donation-requests">Donation Requests</NavLink>
       </li>
       <li>
-        <NavLink to="blog">Blog</NavLink>
+        <NavLink to="/blog">Blog</NavLink>
       </li>
       <li>
-        <NavLink to="dashboard">Dashboard</NavLink>
+        <NavLink to="/dashboard">Dashboard</NavLink>
       </li>
       <li>
-        <NavLink to="dashboard">Funding</NavLink>
+        <NavLink to="/funding">Funding</NavLink>
       </li>
       <li>
-        <NavLink to="dashboard">Login</NavLink>
+        <NavLink to="/login">Login</NavLink>
+      </li>
+      <li>
+        <NavLink to="/registration">Registration</NavLink>
       </li>
     </>
   );
@@ -52,8 +55,9 @@ const Navbar = () => {
             {navLinks}
           </ul>
         </div>
-
-        <img src={"https://i.ibb.co/z21K1ts/logo.webp"} alt="" />
+        <Link to="/">
+          <img src={"https://i.ibb.co/z21K1ts/logo.webp"} alt="" />
+        </Link>
       </div>
       <div className="navbar-end w-auto hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
