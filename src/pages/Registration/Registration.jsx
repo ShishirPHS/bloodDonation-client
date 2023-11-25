@@ -40,7 +40,7 @@ const Registration = () => {
   return (
     <div className="container mx-auto mb-16">
       <h3 className="text-4xl text-center font-bold my-16 font-montserrat">
-        Please Registration
+        Please Registration!
       </h3>
       <form
         className="border-2 px-10 py-12 w-[90%] lg:w-3/4 xl:w-2/4 mx-auto font-poppins"
@@ -184,7 +184,7 @@ const Registration = () => {
         </div>
 
         <button className="bg-[#EF3D32] px-9 py-4 text-white hover:bg-[#4E4E4E] transition-all duration-500 ease-in-out">
-          Submit
+          Register
         </button>
       </form>
     </div>
