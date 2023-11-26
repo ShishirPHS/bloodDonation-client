@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { logIn } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location?.state?.from?.pathname || "/";
 
   const {
     register,
@@ -22,7 +25,7 @@ const Login = () => {
           text: "Login Successful",
           icon: "success",
         });
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch(() => {
         Swal.fire({
