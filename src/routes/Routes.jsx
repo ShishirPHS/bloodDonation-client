@@ -7,6 +7,7 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Dashboard from "../layout/Dashboard/Dashboard";
 import DonorHome from "../pages/Dashboard/DonorHome/DonorHome";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import MyDonationRequests from "../pages/Dashboard/MyDonationRequests/MyDonationRequests";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "donorHome",
         element: <DonorHome></DonorHome>,
+      },
+      {
+        path: "my-donation-requests",
+        element: <MyDonationRequests></MyDonationRequests>,
       },
     ],
   },

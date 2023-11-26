@@ -4,11 +4,16 @@ import "./Dashboard.css";
 const Dashboard = () => {
   return (
     <div className="grid grid-cols-12 container mx-auto">
-      <div className="min-h-screen col-span-2 bg-[#F9F9F9] p-5">
+      <div className="min-h-screen col-span-2 bg-[#4E4E4E] p-5">
         <div className="dashboard">
           <ul>
             <li>
               <NavLink to="/dashboard/donorHome">Donor Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/my-donation-requests">
+                My Donation Requests
+              </NavLink>
             </li>
           </ul>
         </div>
