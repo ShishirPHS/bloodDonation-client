@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -9,6 +12,8 @@ const Registration = () => {
   const [district, setDistrict] = useState([]);
   const [upazila, setUpazila] = useState([]);
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const { createUser } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -31,7 +36,7 @@ const Registration = () => {
   const bloodGroups = ["A+", " A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
   const onSubmit = async (data) => {
-    const { password, confirmPassword } = data;
+    const { email, password, confirmPassword } = data;
     if (password == confirmPassword) {
       setPasswordMatch(true);
     } else {
@@ -48,6 +53,23 @@ const Registration = () => {
 
     if (res.data.success) {
       console.log("img uploaded to the imageBB");
+
+      createUser(email, password)
+        .then((result) => {
+          console.log(result.user);
+          Swal.fire({
+            title: "Registration Successful",
+            icon: "success",
+          });
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
+          Swal.fire({
+            title: error.message,
+            icon: "error",
+          });
+        });
     }
 
     console.log(data);
