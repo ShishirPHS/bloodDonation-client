@@ -41,16 +41,12 @@ const Login = () => {
             className="input input-bordered"
             type="password"
             placeholder="Password"
-            {...register("password", { required: true, minLength: 6 })}
+            {...register("password", { required: true })}
           />
           {errors.password?.type === "required" && (
             <p className="text-[#FF0000]">Password is required</p>
           )}
-          {errors.password?.type === "minLength" && (
-            <p className="text-[#FF0000]">Password must be 6 characters</p>
-          )}
         </div>
-
         <button className="bg-[#EF3D32] px-9 py-4 text-white hover:bg-[#4E4E4E] transition-all duration-500 ease-in-out">
           Login
         </button>

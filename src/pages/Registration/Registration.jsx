@@ -1,10 +1,15 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Registration = () => {
   const [district, setDistrict] = useState([]);
   const [upazila, setUpazila] = useState([]);
   const [passwordMatch, setPasswordMatch] = useState(true);
+
   const {
     register,
     handleSubmit,
@@ -25,13 +30,24 @@ const Registration = () => {
 
   const bloodGroups = ["A+", " A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { password, confirmPassword } = data;
     if (password == confirmPassword) {
       setPasswordMatch(true);
     } else {
       setPasswordMatch(false);
       return;
+    }
+
+    const imageFile = { image: data.photo[0] };
+    const res = await axios.post(image_hosting_api, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    if (res.data.success) {
+      console.log("img uploaded to the imageBB");
     }
 
     console.log(data);
@@ -182,7 +198,6 @@ const Registration = () => {
             <p className="text-[#FF0000]">Password did not match</p>
           )}
         </div>
-
         <button className="bg-[#EF3D32] px-9 py-4 text-white hover:bg-[#4E4E4E] transition-all duration-500 ease-in-out">
           Register
         </button>
