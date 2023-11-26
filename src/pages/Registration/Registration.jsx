@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -14,10 +15,12 @@ const Registration = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const { createUser } = useAuth();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -36,7 +39,15 @@ const Registration = () => {
   const bloodGroups = ["A+", " A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
   const onSubmit = async (data) => {
-    const { email, password, confirmPassword } = data;
+    const {
+      email,
+      name,
+      bloodGroup,
+      district,
+      upazila,
+      password,
+      confirmPassword,
+    } = data;
     if (password == confirmPassword) {
       setPasswordMatch(true);
     } else {
@@ -54,14 +65,31 @@ const Registration = () => {
     if (res.data.success) {
       console.log("img uploaded to the imageBB");
 
+      const user = {
+        name,
+        email,
+        photo: res.data.data.display_url,
+        bloodGroup,
+        district,
+        upazila,
+        role: "donor",
+        status: "active",
+      };
+
       createUser(email, password)
         .then((result) => {
           console.log(result.user);
-          Swal.fire({
-            title: "Registration Successful",
-            icon: "success",
+
+          axiosPublic.post("/users", user).then((res) => {
+            if (res.data.insertedId) {
+              Swal.fire({
+                title: "Registration Successful",
+                icon: "success",
+              });
+              reset();
+              navigate("/");
+            }
           });
-          navigate("/");
         })
         .catch((error) => {
           console.log(error);
