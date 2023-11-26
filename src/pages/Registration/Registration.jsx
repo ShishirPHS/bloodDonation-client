@@ -1,21 +1,21 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAddress from "../../hooks/useAddress";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Registration = () => {
-  const [district, setDistrict] = useState([]);
-  const [upazila, setUpazila] = useState([]);
   const [passwordMatch, setPasswordMatch] = useState(true);
   const { createUser, updateUserInfo } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+  const [district, upazila] = useAddress();
 
   const {
     register,
@@ -23,18 +23,6 @@ const Registration = () => {
     reset,
     formState: { errors },
   } = useForm();
-
-  useEffect(() => {
-    // load districts
-    fetch("/district.json")
-      .then((res) => res.json())
-      .then((data) => setDistrict(data));
-
-    // load upazilas
-    fetch("/upazila.json")
-      .then((res) => res.json())
-      .then((data) => setUpazila(data));
-  }, []);
 
   const bloodGroups = ["A+", " A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
