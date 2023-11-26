@@ -55,9 +55,11 @@ const Navbar = () => {
           <li>
             <NavLink to="/funding">Funding</NavLink>
           </li>
-          <button onClick={handleLogOut} className="logOut-btn ml-5">
-            Log Out
-          </button>
+          <li>
+            <button onClick={handleLogOut} className="logOut-btn">
+              Log Out
+            </button>
+          </li>
         </>
       ) : (
         <>
@@ -100,12 +102,26 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/">
-          <img src={"https://i.ibb.co/z21K1ts/logo.webp"} alt="" />
+          <img
+            className="w-[120px] lg:w-[200px]"
+            src={"https://i.ibb.co/z21K1ts/logo.webp"}
+            alt="website logo"
+          />
         </Link>
       </div>
       <div className="navbar-end w-auto hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
+      {user && (
+        <div>
+          <p className="font-medium">{user?.displayName}</p>
+          <img
+            className="w-[40px] h-[40px] object-cover rounded-full ml-3"
+            src={user?.photoURL}
+            alt={`Image of ${user?.displayName}`}
+          />
+        </div>
+      )}
     </div>
   );
 };
