@@ -1,7 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user } = useAuth();
+
   const navLinks = (
     <>
       <li>
@@ -13,18 +16,26 @@ const Navbar = () => {
       <li>
         <NavLink to="/blog">Blog</NavLink>
       </li>
-      <li>
-        <NavLink to="/dashboard">Dashboard</NavLink>
-      </li>
-      <li>
-        <NavLink to="/funding">Funding</NavLink>
-      </li>
-      <li>
-        <NavLink to="/login">Login</NavLink>
-      </li>
-      <li>
-        <NavLink to="/registration">Registration</NavLink>
-      </li>
+      {user ? (
+        <>
+          <li>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </li>
+          <li>
+            <NavLink to="/funding">Funding</NavLink>
+          </li>
+          <button className="logOut-btn ml-5">Log Out</button>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink to="/login">Login</NavLink>
+          </li>
+          <li>
+            <NavLink to="/registration">Registration</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 

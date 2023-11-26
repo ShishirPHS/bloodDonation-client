@@ -5,7 +5,8 @@
   padding-left: 0px;
 }
 
-.navbar ul li a {
+.navbar ul li a,
+.navbar ul .logOut-btn {
   text-transform: uppercase;
   color: #131313;
   font-family: "Montserrat", sans-serif;
@@ -13,7 +14,8 @@
   padding: 0;
 }
 
-.navbar ul li a:hover {
+.navbar ul li a:hover,
+.navbar ul .logOut-btn:hover {
   color: red;
   background: none;
 }
@@ -22,7 +24,9 @@
   color: red !important;
   background: none !important;
 }
-.navbar ul li a:active {
+
+.navbar ul li a:active,
+.navbar ul .logOut-btn:active {
   background: none !important;
 }
 
