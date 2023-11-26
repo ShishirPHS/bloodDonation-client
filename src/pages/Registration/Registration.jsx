@@ -168,7 +168,7 @@ const Registration = () => {
               <span>District *</span>
             </label>
             <select
-              className="select select-bordered w-full max-w-xs"
+              className="select select-bordered w-full"
               {...register("district", { required: true })}
             >
               <option value="">Select your district</option>
@@ -187,7 +187,7 @@ const Registration = () => {
               <span>Upazila *</span>
             </label>
             <select
-              className="select select-bordered w-full max-w-xs"
+              className="select select-bordered w-full"
               {...register("upazila", { required: true })}
             >
               <option value="">Select your upazila</option>
