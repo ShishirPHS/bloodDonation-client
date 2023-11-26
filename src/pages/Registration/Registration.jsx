@@ -13,7 +13,7 @@ const Registration = () => {
   const [district, setDistrict] = useState([]);
   const [upazila, setUpazila] = useState([]);
   const [passwordMatch, setPasswordMatch] = useState(true);
-  const { createUser } = useAuth();
+  const { createUser, updateUserInfo } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
 
@@ -79,6 +79,8 @@ const Registration = () => {
       createUser(email, password)
         .then((result) => {
           console.log(result.user);
+
+          updateUserInfo(name, user.photo);
 
           axiosPublic.post("/users", user).then((res) => {
             if (res.data.insertedId) {
