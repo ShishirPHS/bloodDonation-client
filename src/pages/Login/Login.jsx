@@ -1,6 +1,12 @@
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const { logIn } = useAuth();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -8,7 +14,22 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    const { email, password } = data;
+    logIn(email, password)
+      .then((result) => {
+        console.log(result.user);
+        Swal.fire({
+          text: "Login Successful",
+          icon: "success",
+        });
+        navigate("/");
+      })
+      .catch(() => {
+        Swal.fire({
+          text: "Email or Password is incorrect!",
+          icon: "error",
+        });
+      });
   };
   return (
     <div className="container mx-auto mb-16">
