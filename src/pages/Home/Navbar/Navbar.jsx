@@ -1,9 +1,40 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't to Log Out!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Log Out",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOut()
+          .then(() => {
+            Swal.fire({
+              title: "Log Out Successful",
+              icon: "success",
+            });
+            navigate("/");
+          })
+          .catch(() => {
+            Swal.fire({
+              title: "Something went wrong, try again later.",
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
 
   const navLinks = (
     <>
@@ -24,7 +55,9 @@ const Navbar = () => {
           <li>
             <NavLink to="/funding">Funding</NavLink>
           </li>
-          <button className="logOut-btn ml-5">Log Out</button>
+          <button onClick={handleLogOut} className="logOut-btn ml-5">
+            Log Out
+          </button>
         </>
       ) : (
         <>
