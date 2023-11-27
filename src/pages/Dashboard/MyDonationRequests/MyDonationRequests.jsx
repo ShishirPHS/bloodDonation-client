@@ -1,9 +1,13 @@
 import { LuFileEdit } from "react-icons/lu";
 import { RiDeleteBin4Fill } from "react-icons/ri";
 import useMyDonationRequests from "../../../hooks/useMyDonationRequests";
+import "./MyDonationRequests.css";
+import useDonationCount from "../../../hooks/useDonationCount";
 
 const MyDonationRequests = () => {
   const [ownDonationRequests] = useMyDonationRequests();
+  const donationsCount = useDonationCount();
+  console.log(donationsCount);
 
   return (
     <div>
@@ -52,6 +56,15 @@ const MyDonationRequests = () => {
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+      <div>
+        <div className="pagination">
+          <button>Previous</button>
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>Next</button>
         </div>
       </div>
     </div>
