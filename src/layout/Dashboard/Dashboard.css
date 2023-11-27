@@ -1,3 +1,7 @@
+.dashboard ul li {
+  padding: 4px 0;
+}
+
 .dashboard ul li a {
   text-transform: uppercase;
   color: #131313;
