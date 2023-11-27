@@ -1,13 +1,48 @@
 import { LuFileEdit } from "react-icons/lu";
 import { RiDeleteBin4Fill } from "react-icons/ri";
-import useMyDonationRequests from "../../../hooks/useMyDonationRequests";
 import "./MyDonationRequests.css";
 import useDonationCount from "../../../hooks/useDonationCount";
+import { useEffect, useState } from "react";
+import useAuth from "../../../hooks/useAuth";
 
 const MyDonationRequests = () => {
-  const [ownDonationRequests] = useMyDonationRequests();
+  const { user } = useAuth();
   const donationsCount = useDonationCount();
-  console.log(donationsCount);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [ownDonationRequests, setOwnDonationRequests] = useState([]);
+
+  const itemsPerPage = 2;
+  const numberOfPages = Math.ceil(donationsCount / itemsPerPage);
+
+  const pages = [];
+  for (let i = 0; i < numberOfPages; i++) {
+    pages.push(i);
+  }
+
+  useEffect(() => {
+    fetch(
+      `http://localhost:5000/pagination/${user?.email}?page=${currentPage}&size=${itemsPerPage}`
+    )
+      .then((res) => res.json())
+      .then((data) => setOwnDonationRequests(data));
+  }, [currentPage, user?.email]);
+
+  const handlePreviousBtn = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextBtn = () => {
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  console.log("count", donationsCount);
+  console.log("current page", currentPage);
+  console.log("items per page", itemsPerPage);
+  console.log(ownDonationRequests);
 
   return (
     <div>
@@ -60,11 +95,17 @@ const MyDonationRequests = () => {
       </div>
       <div>
         <div className="pagination">
-          <button>Previous</button>
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <button>Next</button>
+          <button onClick={handlePreviousBtn}>Previous</button>
+          {pages?.map((page) => (
+            <button
+              className={currentPage === page ? "selected" : ""}
+              onClick={() => setCurrentPage(page)}
+              key={page}
+            >
+              {page + 1}
+            </button>
+          ))}
+          <button onClick={handleNextBtn}>Next</button>
         </div>
       </div>
     </div>

@@ -12,6 +12,11 @@
   border-radius: 5px;
 }
 
+.pagination button.selected {
+  background-color: #4e4e4e;
+  color: white;
+}
+
 .pagination button:hover {
   background-color: #4e4e4e;
   color: white;
