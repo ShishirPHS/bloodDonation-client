@@ -11,7 +11,7 @@ const MyDonationRequests = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [ownDonationRequests, setOwnDonationRequests] = useState([]);
 
-  const itemsPerPage = 2;
+  const itemsPerPage = 5;
   const numberOfPages = Math.ceil(donationsCount / itemsPerPage);
 
   const pages = [];
