@@ -1,11 +1,16 @@
 import { useForm } from "react-hook-form";
 import useAddress from "../../../hooks/useAddress";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const CreateDonationRequests = () => {
+  const axiosPublic = useAxiosPublic();
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const [district, upazila] = useAddress();
@@ -40,6 +45,29 @@ const CreateDonationRequests = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
+    const donation = {
+      requesterName: data.requesterName,
+      requesterEmail: data.requesterEmail,
+      recipientName: data.recipientName,
+      recipientDistrict: data.recipientDistrict,
+      recipientUpazila: data.recipientUpazila,
+      hospitalName: data.hospitalName,
+      fullAddress: data.fullAddress,
+      donationDate: data.donationDate,
+      donationTime: data.donationTime,
+      requestMessage: data.requestMessage,
+      donationStatus: "pending",
+    };
+    axiosPublic.post("/create-donation", donation).then((res) => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        Swal.fire({
+          text: "Donation request created Successfully",
+          icon: "success",
+        });
+        reset();
+      }
+    });
   };
 
   return (
