@@ -7,9 +7,9 @@ const useUser = () => {
   const axiosPublic = useAxiosPublic();
 
   const { data: userData = {} } = useQuery({
-    queryKey: ["user", user.email],
+    queryKey: ["user", user?.email],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/users/${user.email}`);
+      const res = await axiosPublic.get(`/users/${user?.email}`);
       return res.data;
     },
   });

@@ -1,13 +1,22 @@
-import { useParams } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import useAddress from "../../../hooks/useAddress";
+import axios from "axios";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const UpdateProfile = () => {
-  const { id } = useParams();
   const userData = useUser();
   const [district, upazila] = useAddress();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+  const { updateUserInfo } = useAuth();
 
   const {
     register,
@@ -22,12 +31,45 @@ const UpdateProfile = () => {
     // Set default values after fetching data
     setValue("name", userData?.name);
     setValue("bloodGroup", userData?.bloodGroup);
-    setValue("district", userData?.district);
-    setValue("upazila", userData?.upazila);
+    setValue("district", userData?.district || "");
+    setValue("upazila", userData?.upazila || "");
   }, [userData, setValue]);
 
   const onSubmit = async (data) => {
     console.log(data);
+    const { name, district, upazila, bloodGroup } = data;
+
+    const imageFile = { image: data.photo[0] };
+    const res = await axios.post(image_hosting_api, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    if (res.data.success) {
+      const user = {
+        name,
+        email: userData.email,
+        photo: res.data.data.display_url,
+        bloodGroup,
+        district,
+        upazila,
+        role: "donor",
+        status: "active",
+      };
+
+      axiosPublic.put(`/users/${userData._id}`, user).then((res) => {
+        if (res.data.modifiedCount > 0) {
+          updateUserInfo(user?.name, user?.photo);
+
+          Swal.fire({
+            title: "Profile Updated Successfully",
+            icon: "success",
+          });
+          navigate("/dashboard/profile");
+        }
+      });
+    }
   };
 
   return (
@@ -61,9 +103,12 @@ const UpdateProfile = () => {
               </label>
               <input
                 type="file"
-                {...register("photo")}
+                {...register("photo", { required: true })}
                 className="file-input border-1 w-full"
               />
+              {errors.photo?.type === "required" && (
+                <p className="text-[#FF0000]">Avatar is required</p>
+              )}
             </div>
             <div className="form-control mb-3 w-1/2">
               <label className="label font-semibold">

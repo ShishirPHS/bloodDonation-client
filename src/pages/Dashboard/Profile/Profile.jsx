@@ -12,7 +12,7 @@ const Profile = () => {
       <div className="bg-white p-6">
         <div className="flex flex-col justify-center items-center">
           <img
-            className="w-[100px] rounded-full"
+            className="w-[100px] h-[100px] rounded-full"
             src={userData.photo}
             alt={`photo of user`}
           />
