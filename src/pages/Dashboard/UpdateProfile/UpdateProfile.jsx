@@ -29,11 +29,14 @@ const UpdateProfile = () => {
 
   useEffect(() => {
     // Set default values after fetching data
-    setValue("name", userData?.name);
-    setValue("bloodGroup", userData?.bloodGroup);
-    setValue("district", userData?.district || "");
-    setValue("upazila", userData?.upazila || "");
-  }, [userData, setValue]);
+
+    if (userData) {
+      setValue("name", userData?.name);
+      setValue("bloodGroup", userData?.bloodGroup);
+      setValue("district", userData?.district || "");
+      setValue("upazila", userData?.upazila || "");
+    }
+  }, [userData, setValue, district.length, upazila.length]);
 
   const onSubmit = async (data) => {
     console.log(data);
