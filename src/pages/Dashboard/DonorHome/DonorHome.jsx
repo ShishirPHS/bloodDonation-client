@@ -15,12 +15,12 @@ const DonorHome = () => {
       <h4 className="font-semibold text-xl font-montserrat mt-10 mb-5">
         Hi, {user.displayName}. Welcome to our organization.
       </h4>
-      <h3 className="mb-10 text-3xl font-montserrat font-bold text-center">
-        Your Recent Requests
-      </h3>
 
       {ownDonationRequests.length > 0 && (
         <div>
+          <h3 className="mb-10 text-3xl font-montserrat font-bold text-center">
+            Your Recent Requests
+          </h3>
           <div className="overflow-x-auto bg-white p-4">
             <table className="table table-xs">
               <thead className="bg-[#EFE9E9]">
