@@ -14,9 +14,14 @@ const Dashboard = () => {
               <NavLink to="/dashboard/profile">Profile</NavLink>
             </li>
             {userData?.role === "admin" ? (
-              <li>
-                <NavLink to="/dashboard/adminHome">Admin Home</NavLink>
-              </li>
+              <>
+                <li>
+                  <NavLink to="/dashboard/adminHome">Admin Home</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/allUsers">All Users</NavLink>
+                </li>
+              </>
             ) : (
               <li>
                 <NavLink to="/dashboard/donorHome">Donor Home</NavLink>

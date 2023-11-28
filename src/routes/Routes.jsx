@@ -13,6 +13,7 @@ import UpdateDonationRequest from "../pages/Dashboard/UpdateDonationRequest/Upda
 import Profile from "../pages/Dashboard/Profile/Profile";
 import UpdateProfile from "../pages/Dashboard/UpdateProfile/UpdateProfile";
 import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "adminHome",
         element: <AdminHome></AdminHome>,
+      },
+      {
+        path: "allUsers",
+        element: <AllUsers></AllUsers>,
       },
     ],
   },
