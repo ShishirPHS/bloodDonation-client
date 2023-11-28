@@ -4,6 +4,7 @@ import { RiDeleteBin4Fill } from "react-icons/ri";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import useMyDonationRequests from "../../../hooks/useMyDonationRequests";
+import { Link } from "react-router-dom";
 
 const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
   const [, refetch] = useMyDonationRequests();
@@ -54,9 +55,11 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
       <td>{donationStatus}</td>
       <td></td>
       <td className="text-base">
-        <button className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]">
-          <LuFileEdit></LuFileEdit>
-        </button>
+        <Link to={`/dashboard/updateRequest/${_id}`}>
+          <button className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]">
+            <LuFileEdit></LuFileEdit>
+          </button>
+        </Link>
       </td>
       <td className="text-base">
         <button
