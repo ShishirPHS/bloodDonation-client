@@ -9,7 +9,7 @@ const Profile = () => {
       <h2 className="font-montserrat font-bold text-center text-3xl mt-5 mb-12">
         Profile Info
       </h2>
-      <div className="bg-white p-6">
+      <div className="bg-white px-6 py-10">
         <div className="flex flex-col justify-center items-center">
           <img
             className="w-[100px] h-[100px] rounded-full"

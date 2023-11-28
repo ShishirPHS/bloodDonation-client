@@ -70,6 +70,12 @@ const UpdateProfile = () => {
             icon: "success",
           });
           navigate("/dashboard/profile");
+        } else {
+          Swal.fire({
+            title: "Something went wrong!",
+            text: "It seems nothing has changed or something else",
+            icon: "error",
+          });
         }
       });
     }
