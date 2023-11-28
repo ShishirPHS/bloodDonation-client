@@ -8,6 +8,9 @@ const Dashboard = () => {
         <div className="dashboard">
           <ul>
             <li>
+              <NavLink to="/dashboard/profile">Profile</NavLink>
+            </li>
+            <li>
               <NavLink to="/dashboard/donorHome">Donor Home</NavLink>
             </li>
             <li>
