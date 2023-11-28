@@ -3,7 +3,6 @@ import useUser from "../../../hooks/useUser";
 
 const Profile = () => {
   const userData = useUser();
-  console.log(userData);
 
   return (
     <div>
