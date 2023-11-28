@@ -1,13 +1,9 @@
-import { useState } from "react";
-import useAuth from "../../../hooks/useAuth";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { Link } from "react-router-dom";
+import useUser from "../../../hooks/useUser";
 
 const Profile = () => {
-  const { user } = useAuth();
-  const [userData, setUserData] = useState({});
-  const axiosPublic = useAxiosPublic();
-
-  axiosPublic.get(`/users/${user.email}`).then((res) => setUserData(res.data));
+  const userData = useUser();
+  console.log(userData);
 
   return (
     <div>
@@ -38,9 +34,11 @@ const Profile = () => {
             <span className="font-semibold">Blood Group: </span>
             {userData.bloodGroup}
           </p>
-          <button className="mt-5  bg-[#EF3D32] px-9 py-4 text-white hover:bg-[#4E4E4E] transition-all duration-500 ease-in-out">
-            Update Profile
-          </button>
+          <Link to={`/dashboard/updateProfile/${userData.email}`}>
+            <button className="mt-5  bg-[#EF3D32] px-9 py-4 text-white hover:bg-[#4E4E4E] transition-all duration-500 ease-in-out">
+              Update Profile
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ import MyDonationRequests from "../pages/Dashboard/MyDonationRequests/MyDonation
 import CreateDonationRequests from "../pages/Dashboard/CreateDonationRequests/CreateDonationRequests";
 import UpdateDonationRequest from "../pages/Dashboard/UpdateDonationRequest/UpdateDonationRequest";
 import Profile from "../pages/Dashboard/Profile/Profile";
+import UpdateProfile from "../pages/Dashboard/UpdateProfile/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile></Profile>,
+      },
+      {
+        path: "updateProfile/:email",
+        element: <UpdateProfile></UpdateProfile>,
       },
       {
         path: "donorHome",
