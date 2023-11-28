@@ -3,9 +3,11 @@ import useAddress from "../../../hooks/useAddress";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useUser from "../../../hooks/useUser";
 
 const CreateDonationRequests = () => {
   const axiosPublic = useAxiosPublic();
+  const userData = useUser();
 
   const {
     register,
@@ -232,7 +234,10 @@ const CreateDonationRequests = () => {
               <p className="text-[#FF0000]">Request Message is required</p>
             )}
           </div>
-          <button className="bg-[#EF3D32] px-9 py-4 text-white hover:bg-[#4E4E4E] transition-all duration-500 ease-in-out">
+          <button
+            disabled={userData?.status !== "active"}
+            className="bg-[#EF3D32] px-9 disabled:cursor-not-allowed disabled:bg-gray-400 py-4 text-white hover:bg-[#4E4E4E] transition-all duration-500 ease-in-out"
+          >
             Create Request
           </button>
         </form>

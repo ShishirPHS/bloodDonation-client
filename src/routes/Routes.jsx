@@ -12,6 +12,7 @@ import CreateDonationRequests from "../pages/Dashboard/CreateDonationRequests/Cr
 import UpdateDonationRequest from "../pages/Dashboard/UpdateDonationRequest/UpdateDonationRequest";
 import Profile from "../pages/Dashboard/Profile/Profile";
 import UpdateProfile from "../pages/Dashboard/UpdateProfile/UpdateProfile";
+import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "create-donation-requests",
         element: <CreateDonationRequests></CreateDonationRequests>,
+      },
+      {
+        path: "adminHome",
+        element: <AdminHome></AdminHome>,
       },
     ],
   },

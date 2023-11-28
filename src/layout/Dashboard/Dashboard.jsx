@@ -1,7 +1,10 @@
 import { NavLink, Outlet } from "react-router-dom";
 import "./Dashboard.css";
+import useUser from "../../hooks/useUser";
 
 const Dashboard = () => {
+  const userData = useUser();
+
   return (
     <div className="grid grid-cols-5 container mx-auto">
       <div className="min-h-screen col-span-1 bg-[#4E4E4E] p-5">
@@ -10,9 +13,15 @@ const Dashboard = () => {
             <li>
               <NavLink to="/dashboard/profile">Profile</NavLink>
             </li>
-            <li>
-              <NavLink to="/dashboard/donorHome">Donor Home</NavLink>
-            </li>
+            {userData?.role === "admin" ? (
+              <li>
+                <NavLink to="/dashboard/adminHome">Admin Home</NavLink>
+              </li>
+            ) : (
+              <li>
+                <NavLink to="/dashboard/donorHome">Donor Home</NavLink>
+              </li>
+            )}
             <li>
               <NavLink to="/dashboard/my-donation-requests">
                 My Donation Requests

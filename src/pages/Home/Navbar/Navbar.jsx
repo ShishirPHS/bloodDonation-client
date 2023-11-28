@@ -2,10 +2,12 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useUser from "../../../hooks/useUser";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
+  const userData = useUser();
 
   const handleLogOut = () => {
     Swal.fire({
@@ -49,9 +51,15 @@ const Navbar = () => {
       </li>
       {user ? (
         <>
-          <li>
-            <NavLink to="/dashboard/donorHome">Dashboard</NavLink>
-          </li>
+          {userData?.role === "admin" ? (
+            <li>
+              <NavLink to="/dashboard/adminHome">Dashboard</NavLink>
+            </li>
+          ) : (
+            <li>
+              <NavLink to="/dashboard/donorHome">Dashboard</NavLink>
+            </li>
+          )}
           <li>
             <NavLink to="/funding">Funding</NavLink>
           </li>
