@@ -1,9 +1,8 @@
-import { LuFileEdit } from "react-icons/lu";
-import { RiDeleteBin4Fill } from "react-icons/ri";
 import "./MyDonationRequests.css";
 import useDonationCount from "../../../hooks/useDonationCount";
 import { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
+import DonationRequestRow from "../../../components/shared/DonationRequestRow/DonationRequestRow";
 
 const MyDonationRequests = () => {
   const { user } = useAuth();
@@ -39,10 +38,10 @@ const MyDonationRequests = () => {
     }
   };
 
-  console.log("count", donationsCount);
-  console.log("current page", currentPage);
-  console.log("items per page", itemsPerPage);
-  console.log(ownDonationRequests);
+  // console.log("count", donationsCount);
+  // console.log("current page", currentPage);
+  // console.log("items per page", itemsPerPage);
+  // console.log(ownDonationRequests);
 
   return (
     <div>
@@ -74,27 +73,11 @@ const MyDonationRequests = () => {
                 </thead>
                 <tbody>
                   {ownDonationRequests?.map((request, idx) => (
-                    <tr key={idx}>
-                      <td>{idx + 1}</td>
-                      <td>{request.recipientName}</td>
-                      <td>
-                        {request.recipientDistrict}, {request.recipientUpazila}
-                      </td>
-                      <td>{request.donationDate}</td>
-                      <td>{request.donationTime}</td>
-                      <td>{request.donationStatus}</td>
-                      <td></td>
-                      <td className="text-base">
-                        <button className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]">
-                          <LuFileEdit></LuFileEdit>
-                        </button>
-                      </td>
-                      <td className="text-base">
-                        <button className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]">
-                          <RiDeleteBin4Fill></RiDeleteBin4Fill>
-                        </button>
-                      </td>
-                    </tr>
+                    <DonationRequestRow
+                      key={idx}
+                      request={request}
+                      idx={idx}
+                    ></DonationRequestRow>
                   ))}
                 </tbody>
               </table>
