@@ -3,8 +3,10 @@ import { LuFileEdit } from "react-icons/lu";
 import { RiDeleteBin4Fill } from "react-icons/ri";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useMyDonationRequests from "../../../hooks/useMyDonationRequests";
 
-const DonationRequestRow = ({ request, idx }) => {
+const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
+  const [, refetch] = useMyDonationRequests();
   const {
     _id,
     recipientName,
@@ -33,6 +35,8 @@ const DonationRequestRow = ({ request, idx }) => {
             text: "Donation Request Deleted Successfully",
             icon: "success",
           });
+          refetch();
+          refetchPaginationTable();
         }
       }
     });
@@ -69,6 +73,7 @@ const DonationRequestRow = ({ request, idx }) => {
 DonationRequestRow.propTypes = {
   request: PropTypes.object,
   idx: PropTypes.number,
+  refetchPaginationTable: PropTypes.func,
 };
 
 export default DonationRequestRow;

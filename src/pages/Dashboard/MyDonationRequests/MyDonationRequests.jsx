@@ -1,14 +1,16 @@
 import "./MyDonationRequests.css";
 import useDonationCount from "../../../hooks/useDonationCount";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import DonationRequestRow from "../../../components/shared/DonationRequestRow/DonationRequestRow";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const MyDonationRequests = () => {
   const { user } = useAuth();
   const donationsCount = useDonationCount();
   const [currentPage, setCurrentPage] = useState(0);
-  const [ownDonationRequests, setOwnDonationRequests] = useState([]);
+  const axiosPublic = useAxiosPublic();
 
   const itemsPerPage = 5;
   const numberOfPages = Math.ceil(donationsCount / itemsPerPage);
@@ -18,13 +20,16 @@ const MyDonationRequests = () => {
     pages.push(i);
   }
 
-  useEffect(() => {
-    fetch(
-      `http://localhost:5000/pagination/${user?.email}?page=${currentPage}&size=${itemsPerPage}`
-    )
-      .then((res) => res.json())
-      .then((data) => setOwnDonationRequests(data));
-  }, [currentPage, user?.email]);
+  // load data for pagination table
+  const { data: ownDonationRequests = [], refetch } = useQuery({
+    queryKey: ["paginationTable", currentPage],
+    queryFn: async () => {
+      const result = await axiosPublic.get(
+        `http://localhost:5000/pagination/${user?.email}?page=${currentPage}&size=${itemsPerPage}`
+      );
+      return result.data;
+    },
+  });
 
   const handlePreviousBtn = () => {
     if (currentPage > 0) {
@@ -77,6 +82,7 @@ const MyDonationRequests = () => {
                       key={idx}
                       request={request}
                       idx={idx}
+                      refetchPaginationTable={refetch}
                     ></DonationRequestRow>
                   ))}
                 </tbody>

@@ -6,7 +6,7 @@ const useMyDonationRequests = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
 
-  const { data: ownDonationRequests = [] } = useQuery({
+  const { data: ownDonationRequests = [], refetch } = useQuery({
     queryKey: ["myDonationRequests", user?.email],
     queryFn: async () => {
       const res = await axiosPublic.get(`/donations/${user?.email}`);
@@ -14,7 +14,7 @@ const useMyDonationRequests = () => {
     },
   });
 
-  return [ownDonationRequests];
+  return [ownDonationRequests, refetch];
 };
 
 export default useMyDonationRequests;
