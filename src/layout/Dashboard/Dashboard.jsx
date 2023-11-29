@@ -13,7 +13,7 @@ const Dashboard = () => {
             <li>
               <NavLink to="/dashboard/profile">Profile</NavLink>
             </li>
-            {userData?.role === "admin" ? (
+            {userData?.role === "admin" && (
               <>
                 <li>
                   <NavLink to="/dashboard/adminHome">Admin Home</NavLink>
@@ -21,22 +21,30 @@ const Dashboard = () => {
                 <li>
                   <NavLink to="/dashboard/allUsers">All Users</NavLink>
                 </li>
+                <li>
+                  <NavLink to="/dashboard/all-blood-donation-request">
+                    All Blood Donation Request
+                  </NavLink>
+                </li>
               </>
-            ) : (
-              <li>
-                <NavLink to="/dashboard/donorHome">Donor Home</NavLink>
-              </li>
             )}
-            <li>
-              <NavLink to="/dashboard/my-donation-requests">
-                My Donation Requests
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/create-donation-requests">
-                Create Donation Requests
-              </NavLink>
-            </li>
+            {userData?.role !== "admin" && (
+              <>
+                <li>
+                  <NavLink to="/dashboard/donorHome">Donor Home</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/my-donation-requests">
+                    My Donation Requests
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/create-donation-requests">
+                    Create Donation Requests
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
