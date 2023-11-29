@@ -99,6 +99,7 @@ const UserTableRow = ({ user, idx, refetch }) => {
       <td>{email}</td>
       <td>{name}</td>
       <td>{status}</td>
+      <td>{role}</td>
       <td>
         <details className="dropdown dropdown-left dropdown-end">
           <summary className="btn bg-[#EF3D32] text-white py-2 px-4 rounded-md hover:bg-[#4E4E4E]">

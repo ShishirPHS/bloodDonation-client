@@ -54,6 +54,7 @@ const AllUsers = () => {
                   <th>Email</th>
                   <th>Name</th>
                   <th>Status</th>
+                  <th>Role</th>
                   <th>Actions</th>
                 </tr>
               </thead>
