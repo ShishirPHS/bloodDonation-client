@@ -12,7 +12,7 @@ const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const UpdateProfile = () => {
-  const userData = useUser();
+  const [userData] = useUser();
   const [district, upazila] = useAddress();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();

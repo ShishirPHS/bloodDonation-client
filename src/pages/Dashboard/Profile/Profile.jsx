@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
 
 const Profile = () => {
-  const userData = useUser();
+  const [userData] = useUser();
 
   return (
     <div>

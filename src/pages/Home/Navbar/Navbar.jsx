@@ -7,7 +7,7 @@ import useUser from "../../../hooks/useUser";
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
-  const userData = useUser();
+  const [userData] = useUser();
 
   const handleLogOut = () => {
     Swal.fire({

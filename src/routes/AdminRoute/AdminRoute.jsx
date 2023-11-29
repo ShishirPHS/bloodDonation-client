@@ -7,10 +7,10 @@ const AdminRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
-  const userData = useUser();
+  const [userData, isLoading] = useUser();
   const isAdmin = userData?.role === "admin";
 
-  if (loading) {
+  if (loading || isLoading) {
     return (
       <div className="container mx-auto flex items-center justify-center h-[70vh]">
         <div

@@ -3,7 +3,7 @@ import "./Dashboard.css";
 import useUser from "../../hooks/useUser";
 
 const Dashboard = () => {
-  const userData = useUser();
+  const [userData] = useUser();
 
   return (
     <div className="grid grid-cols-5 container mx-auto">
