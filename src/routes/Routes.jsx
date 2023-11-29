@@ -15,6 +15,7 @@ import UpdateProfile from "../pages/Dashboard/UpdateProfile/UpdateProfile";
 import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AllBloodDonationRequest from "../pages/Dashboard/AllBloodDonationRequest/AllBloodDonationRequest";
+import AdminRoute from "./AdminRoute/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -68,17 +69,30 @@ const router = createBrowserRouter([
         path: "create-donation-requests",
         element: <CreateDonationRequests></CreateDonationRequests>,
       },
+      // admin only routes
       {
         path: "adminHome",
-        element: <AdminHome></AdminHome>,
+        element: (
+          <AdminRoute>
+            <AdminHome></AdminHome>
+          </AdminRoute>
+        ),
       },
       {
         path: "allUsers",
-        element: <AllUsers></AllUsers>,
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
       },
       {
         path: "all-blood-donation-request",
-        element: <AllBloodDonationRequest></AllBloodDonationRequest>,
+        element: (
+          <AdminRoute>
+            <AllBloodDonationRequest></AllBloodDonationRequest>
+          </AdminRoute>
+        ),
       },
     ],
   },
