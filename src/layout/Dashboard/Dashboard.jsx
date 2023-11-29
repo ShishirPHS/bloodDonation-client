@@ -26,6 +26,16 @@ const Dashboard = () => {
                     All Blood Donation Request
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink to="/dashboard/create-donation-requests">
+                    Create Donation Requests
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/content-management">
+                    Content Management
+                  </NavLink>
+                </li>
               </>
             )}
             {userData?.role !== "admin" && (
