@@ -1,0 +1,19 @@
+.action-btn li {
+  padding: 6px 5px;
+}
+
+.action-btn button {
+  font-weight: 600;
+  padding: 0;
+  background: none !important;
+}
+
+.action-btn button:hover {
+  background: none !important;
+  color: red;
+}
+
+.action-btn button:active {
+  background: none !important;
+  color: red;
+}

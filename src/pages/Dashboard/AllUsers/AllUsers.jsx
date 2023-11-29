@@ -45,7 +45,7 @@ const AllUsers = () => {
       <h2>all users page</h2>
       <div>
         <div>
-          <div className="overflow-x-auto bg-white p-4">
+          <div className="overflow-x-auto bg-white px-4 py-8">
             <table className="table table-xs">
               <thead className="bg-[#EFE9E9]">
                 <tr>
@@ -54,6 +54,7 @@ const AllUsers = () => {
                   <th>Email</th>
                   <th>Name</th>
                   <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
