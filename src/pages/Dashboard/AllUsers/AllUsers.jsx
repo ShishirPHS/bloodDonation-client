@@ -42,7 +42,7 @@ const AllUsers = () => {
 
   return (
     <div>
-      <h2>all users page</h2>
+      <h2 className="text-center font-bold text-3xl mt-5 mb-10 font-montserrat">All Users</h2>
       <div>
         <div>
           <div className="overflow-x-auto bg-white px-4 py-8">
