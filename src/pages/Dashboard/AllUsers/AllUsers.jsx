@@ -18,7 +18,7 @@ const AllUsers = () => {
   }
 
   // load data for pagination table
-  const { data: allUsers = [] } = useQuery({
+  const { data: allUsers = [], refetch } = useQuery({
     queryKey: ["allUsersPaginationTable", currentPage],
     queryFn: async () => {
       const result = await axiosPublic.get(
@@ -59,7 +59,12 @@ const AllUsers = () => {
               </thead>
               <tbody>
                 {allUsers?.map((user, idx) => (
-                  <UserTableRow key={idx} user={user} idx={idx}></UserTableRow>
+                  <UserTableRow
+                    key={idx}
+                    user={user}
+                    idx={idx}
+                    refetch={refetch}
+                  ></UserTableRow>
                 ))}
               </tbody>
             </table>
