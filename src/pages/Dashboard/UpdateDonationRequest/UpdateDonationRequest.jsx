@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
@@ -10,7 +10,6 @@ import Swal from "sweetalert2";
 const UpdateDonationRequest = () => {
   const { id } = useParams();
   const axiosPublic = useAxiosPublic();
-  const navigate = useNavigate();
 
   const {
     register,
@@ -94,7 +93,6 @@ const UpdateDonationRequest = () => {
           text: "Donation request updated Successfully",
           icon: "success",
         });
-        navigate("/dashboard/my-donation-requests");
       }
     });
   };
