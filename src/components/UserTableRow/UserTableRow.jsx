@@ -53,7 +53,37 @@ const UserTableRow = ({ user, idx, refetch }) => {
   };
 
   const handleRoleChange = (role) => {
-    console.log("btn clicked", role);
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const editedUser = {
+          name,
+          email,
+          photo,
+          bloodGroup,
+          district,
+          upazila,
+          role: role,
+          status,
+        };
+
+        axiosPublic.put(`/users/${_id}`, editedUser).then((res) => {
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              title: "User Role Updated Successfully",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
   };
 
   return (
