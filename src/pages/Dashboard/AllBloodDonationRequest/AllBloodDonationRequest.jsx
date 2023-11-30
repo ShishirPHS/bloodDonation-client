@@ -3,11 +3,14 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import DonationRequestRow from "../../../components/shared/DonationRequestRow/DonationRequestRow";
 import useAllDonationCount from "../../../hooks/useAllDonationCount";
+import { FaFilter } from "react-icons/fa";
 
 const AllBloodDonationRequest = () => {
   const allDonationsCount = useAllDonationCount();
   const [currentPage, setCurrentPage] = useState(0);
   const axiosPublic = useAxiosPublic();
+
+  const [filter, setFilter] = useState("all");
 
   const itemsPerPage = 5;
   const numberOfPages = Math.ceil(allDonationsCount / itemsPerPage);
@@ -40,6 +43,18 @@ const AllBloodDonationRequest = () => {
     }
   };
 
+  const handleFilterBtn = (status) => {
+    setFilter(status);
+    setCurrentPage(0);
+  };
+
+  const filteredDonationRequests =
+    filter === "all"
+      ? allDonationRequests
+      : allDonationRequests.filter(
+          (request) => request.donationStatus === filter
+        );
+
   return (
     <div>
       <h2 className="font-montserrat font-bold text-3xl text-center mt-5 mb-10">
@@ -47,6 +62,37 @@ const AllBloodDonationRequest = () => {
       </h2>
       <div>
         <div>
+          <div className=" bg-white inline-flex  mb-2">
+            <details className="dropdown">
+              <summary className="btn filter-btn flex items-center hover:text-red-600">
+                <FaFilter></FaFilter>
+                <span className="ml-2 font-semibold">Filter by</span>
+              </summary>
+              <ul className="action-btn p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                <li>
+                  <button onClick={() => handleFilterBtn("all")}>All</button>
+                </li>
+                <li>
+                  <button onClick={() => handleFilterBtn("pending")}>
+                    Pending
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleFilterBtn("inprogress")}>
+                    In Progress
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleFilterBtn("done")}>Done</button>
+                </li>
+                <li>
+                  <button onClick={() => handleFilterBtn("canceled")}>
+                    Canceled
+                  </button>
+                </li>
+              </ul>
+            </details>
+          </div>
           <div className="overflow-x-auto bg-white p-4">
             <table className="table table-xs">
               <thead className="bg-[#EFE9E9]">
@@ -63,7 +109,7 @@ const AllBloodDonationRequest = () => {
                 </tr>
               </thead>
               <tbody>
-                {allDonationRequests?.map((request, idx) => (
+                {filteredDonationRequests?.map((request, idx) => (
                   <DonationRequestRow
                     key={idx}
                     request={request}
