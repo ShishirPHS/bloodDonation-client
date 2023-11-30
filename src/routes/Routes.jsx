@@ -20,6 +20,7 @@ import ContentManagement from "../pages/Dashboard/ContentManagement/ContentManag
 import AddBlog from "../pages/Dashboard/AddBlog/AddBlog";
 import VolunteerHome from "../pages/Dashboard/VolunteerHome/VolunteerHome";
 import AllBloodDonation from "../pages/Dashboard/AllBloodDonation/AllBloodDonation";
+import VolunteerRoute from "./VolunteerRoute/VolunteerRoute";
 
 const router = createBrowserRouter([
   {
@@ -113,11 +114,19 @@ const router = createBrowserRouter([
       // volunteer only route
       {
         path: "volunteerHome",
-        element: <VolunteerHome></VolunteerHome>,
+        element: (
+          <VolunteerRoute>
+            <VolunteerHome></VolunteerHome>
+          </VolunteerRoute>
+        ),
       },
       {
         path: "allBlood-donation-request",
-        element: <AllBloodDonation></AllBloodDonation>,
+        element: (
+          <VolunteerRoute>
+            <AllBloodDonation></AllBloodDonation>
+          </VolunteerRoute>
+        ),
       },
     ],
   },
