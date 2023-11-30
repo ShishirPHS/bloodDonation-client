@@ -1,8 +1,15 @@
 import { useForm } from "react-hook-form";
 import useUser from "../../../hooks/useUser";
+import axios from "axios";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddBlog = () => {
   const [userData] = useUser();
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
@@ -11,7 +18,33 @@ const AddBlog = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
+    const { blogTitle, content } = data;
+
+    const imageFile = { image: data.thumbnailImage[0] };
+    const res = await axios.post(image_hosting_api, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    if (res.data.success) {
+      const blog = {
+        blogTitle,
+        thumbnailImage: res.data.data.display_url,
+        content,
+        status: "draft",
+      };
+
+      axiosPublic.post("/blogs", blog).then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            title: "Blog Created Successfully!",
+            icon: "success",
+          });
+        }
+      });
+    }
   };
 
   return (
