@@ -30,6 +30,36 @@ const BlogTableRow = ({ blog, idx, refetch }) => {
     });
   };
 
+  const handlePublishUnPublish = (status) => {
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const editedBlog = {
+          blogTitle,
+          thumbnailImage,
+          content,
+          status: status,
+        };
+
+        axiosPublic.put(`/blog/${_id}`, editedBlog).then((res) => {
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              title: "Blog Publish Status Updated Successfully",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
+
   return (
     <tr>
       <td>{idx + 1}</td>
@@ -43,6 +73,23 @@ const BlogTableRow = ({ blog, idx, refetch }) => {
       </td>
       <td>{content.slice(0, 50)}...</td>
       <td>{status}</td>
+      <td>
+        {status === "draft" ? (
+          <button
+            onClick={() => handlePublishUnPublish("published")}
+            className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E] w-[80px]"
+          >
+            Publish
+          </button>
+        ) : (
+          <button
+            onClick={() => handlePublishUnPublish("draft")}
+            className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E] w-[80px]"
+          >
+            Unpublish
+          </button>
+        )}
+      </td>
       <td className="text-base">
         <button
           onClick={() => handleBlogDelete(_id)}

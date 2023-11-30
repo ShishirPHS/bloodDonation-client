@@ -76,6 +76,7 @@ const ContentManagement = () => {
                   <th>Thumbnail Image</th>
                   <th>Blog Content</th>
                   <th>Status</th>
+                  <th>Publish</th>
                   <th>Delete</th>
                 </tr>
               </thead>
