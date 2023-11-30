@@ -5,6 +5,8 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import useMyDonationRequests from "../../../hooks/useMyDonationRequests";
 import { Link } from "react-router-dom";
+import useUser from "../../../hooks/useUser";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
   const [, refetch] = useMyDonationRequests();
@@ -17,6 +19,7 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
     donationTime,
     donationStatus,
   } = request;
+  const [userData] = useUser();
   const axiosPublic = useAxiosPublic();
 
   const handleDonationDelete = (id) => {
@@ -43,6 +46,36 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
     });
   };
 
+  const handleStatusChange = (status) => {
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const editedDonation = {
+          donationStatus: status,
+          donorName: userData.name,
+          donorEmail: userData.email,
+        };
+
+        axiosPublic.patch(`/donations/${_id}`, editedDonation).then((res) => {
+          console.log(res.data);
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              title: "Status Updated Successfully",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
+
   return (
     <tr>
       <td>{idx + 1}</td>
@@ -54,21 +87,54 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
       <td>{donationTime}</td>
       <td>{donationStatus}</td>
       <td></td>
-      <td className="text-base">
-        <Link to={`/dashboard/updateRequest/${_id}`}>
-          <button className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]">
-            <LuFileEdit></LuFileEdit>
-          </button>
-        </Link>
-      </td>
-      <td className="text-base">
-        <button
-          onClick={() => handleDonationDelete(_id)}
-          className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]"
-        >
-          <RiDeleteBin4Fill></RiDeleteBin4Fill>
-        </button>
-      </td>
+      {userData.role !== "volunteer" && (
+        <>
+          <td className="text-base">
+            <Link to={`/dashboard/updateRequest/${_id}`}>
+              <button className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]">
+                <LuFileEdit></LuFileEdit>
+              </button>
+            </Link>
+          </td>
+          <td className="text-base">
+            <button
+              onClick={() => handleDonationDelete(_id)}
+              className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]"
+            >
+              <RiDeleteBin4Fill></RiDeleteBin4Fill>
+            </button>
+          </td>
+        </>
+      )}
+      {userData.role === "volunteer" && (
+        <td>
+          <details className="dropdown dropdown-left dropdown-end">
+            <summary className="btn bg-[#EF3D32] text-white py-2 my-1 px-4 rounded-md hover:bg-[#4E4E4E]">
+              <BsThreeDotsVertical></BsThreeDotsVertical>
+            </summary>
+            <ul className="action-btn p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 top-[50%]">
+              <li>
+                <button onClick={() => handleStatusChange("pending")}>
+                  Pending
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleStatusChange("inprogress")}>
+                  In Progress
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleStatusChange("done")}>Done</button>
+              </li>
+              <li>
+                <button onClick={() => handleStatusChange("canceled")}>
+                  Canceled
+                </button>
+              </li>
+            </ul>
+          </details>
+        </td>
+      )}
     </tr>
   );
 };

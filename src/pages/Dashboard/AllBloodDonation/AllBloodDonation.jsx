@@ -4,11 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 import DonationRequestRow from "../../../components/shared/DonationRequestRow/DonationRequestRow";
 import useAllDonationCount from "../../../hooks/useAllDonationCount";
 import { FaFilter } from "react-icons/fa";
+import useUser from "../../../hooks/useUser";
 
 const AllBloodDonation = () => {
   const allDonationsCount = useAllDonationCount();
   const [currentPage, setCurrentPage] = useState(0);
   const axiosPublic = useAxiosPublic();
+  const [userData] = useUser();
 
   const [filter, setFilter] = useState("all");
 
@@ -93,7 +95,7 @@ const AllBloodDonation = () => {
               </ul>
             </details>
           </div>
-          <div className="overflow-x-auto bg-white p-4">
+          <div className="overflow-x-auto bg-white px-4 pb-4 pt-10">
             <table className="table table-xs">
               <thead className="bg-[#EFE9E9]">
                 <tr>
@@ -104,8 +106,13 @@ const AllBloodDonation = () => {
                   <th>Donation Time</th>
                   <th>Donation Status</th>
                   <th>Donor Information</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
+                  {userData.role !== "volunteer" && (
+                    <>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </>
+                  )}
+                  {userData.role === "volunteer" && <th>Update Status</th>}
                 </tr>
               </thead>
               <tbody>
