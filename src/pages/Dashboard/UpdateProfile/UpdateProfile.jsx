@@ -57,7 +57,7 @@ const UpdateProfile = () => {
         bloodGroup,
         district,
         upazila,
-        role: "donor",
+        role: userData.role,
         status: "active",
       };
 
