@@ -3,16 +3,18 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useState } from "react";
 import UserTableRow from "../../../components/UserTableRow/UserTableRow";
 import useUserCount from "../../../hooks/useUserCount";
+import { FaFilter } from "react-icons/fa";
 
 const AllUsers = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const axiosPublic = useAxiosPublic();
   const usersCount = useUserCount();
+  const [filter, setFilter] = useState("all");
 
   const itemsPerPage = 5;
   const numberOfPages = Math.ceil(usersCount / itemsPerPage);
-
   const pages = [];
+
   for (let i = 0; i < numberOfPages; i++) {
     pages.push(i);
   }
@@ -40,11 +42,47 @@ const AllUsers = () => {
     }
   };
 
+  const handleFilterBtn = (status) => {
+    setFilter(status);
+    setCurrentPage(0);
+  };
+
+  const filteredUsers =
+    filter === "all"
+      ? allUsers
+      : allUsers.filter((user) => user.status === filter);
+
   return (
     <div>
-      <h2 className="text-center font-bold text-3xl mt-5 mb-10 font-montserrat">All Users</h2>
+      <h2 className="text-center font-bold text-3xl mt-5 mb-10 font-montserrat">
+        All Users
+      </h2>
       <div>
         <div>
+          <div className=" bg-white inline-flex  mb-2">
+            <details className="dropdown">
+              <summary className="btn filter-btn flex items-center hover:text-red-600">
+                <FaFilter></FaFilter>
+                <span className="ml-2 font-semibold">Filter by</span>
+              </summary>
+              <ul className="action-btn p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                <li>
+                  <button onClick={() => handleFilterBtn("all")}>All</button>
+                </li>
+                <li>
+                  <button onClick={() => handleFilterBtn("active")}>
+                    Active
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleFilterBtn("blocked")}>
+                    Blocked
+                  </button>
+                </li>
+              </ul>
+            </details>
+          </div>
+
           <div className="overflow-x-auto bg-white px-4 py-8">
             <table className="table table-xs">
               <thead className="bg-[#EFE9E9]">
@@ -59,7 +97,7 @@ const AllUsers = () => {
                 </tr>
               </thead>
               <tbody>
-                {allUsers?.map((user, idx) => (
+                {filteredUsers?.map((user, idx) => (
                   <UserTableRow
                     key={idx}
                     user={user}
