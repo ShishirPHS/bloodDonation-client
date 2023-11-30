@@ -51,13 +51,19 @@ const Navbar = () => {
       </li>
       {user ? (
         <>
-          {userData?.role === "admin" ? (
+          {userData?.role === "admin" && (
             <li>
               <NavLink to="/dashboard/adminHome">Dashboard</NavLink>
             </li>
-          ) : (
+          )}
+          {userData?.role === "donor" && (
             <li>
               <NavLink to="/dashboard/donorHome">Dashboard</NavLink>
+            </li>
+          )}
+          {userData?.role === "volunteer" && (
+            <li>
+              <NavLink to="/dashboard/volunteerHome">Dashboard</NavLink>
             </li>
           )}
           <li>

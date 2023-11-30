@@ -13,48 +13,68 @@ const Dashboard = () => {
             <li>
               <NavLink to="/dashboard/profile">Profile</NavLink>
             </li>
-            {userData?.role === "admin" && (
-              <>
-                <li>
-                  <NavLink to="/dashboard/adminHome">Admin Home</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/allUsers">All Users</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/all-blood-donation-request">
-                    All Blood Donation Request
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/create-donation-requests">
-                    Create Donation Requests
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/content-management">
-                    Content Management
-                  </NavLink>
-                </li>
-              </>
-            )}
-            {userData?.role !== "admin" && (
-              <>
-                <li>
-                  <NavLink to="/dashboard/donorHome">Donor Home</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/my-donation-requests">
-                    My Donation Requests
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/create-donation-requests">
-                    Create Donation Requests
-                  </NavLink>
-                </li>
-              </>
-            )}
+            {userData?.role === "admin" &&
+              userData?.role !== "donor" &&
+              userData?.role !== "volunteer" && (
+                <>
+                  <li>
+                    <NavLink to="/dashboard/adminHome">Admin Home</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/dashboard/allUsers">All Users</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/dashboard/all-blood-donation-request">
+                      All Blood Donation Request
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/dashboard/create-donation-requests">
+                      Create Donation Requests
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/dashboard/content-management">
+                      Content Management
+                    </NavLink>
+                  </li>
+                </>
+              )}
+            {userData?.role === "donor" &&
+              userData?.role !== "admin" &&
+              userData?.role !== "volunteer" && (
+                <>
+                  <li>
+                    <NavLink to="/dashboard/donorHome">Donor Home</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/dashboard/my-donation-requests">
+                      My Donation Requests
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/dashboard/create-donation-requests">
+                      Create Donation Requests
+                    </NavLink>
+                  </li>
+                </>
+              )}
+            {userData?.role === "volunteer" &&
+              userData?.role !== "donor" &&
+              userData?.role !== "admin" && (
+                <>
+                  <li>
+                    <NavLink to="/dashboard/volunteerHome">
+                      Volunteer Home
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/dashboard/create-donation-requests">
+                      Create Donation Requests
+                    </NavLink>
+                  </li>
+                </>
+              )}
           </ul>
         </div>
       </div>

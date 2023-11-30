@@ -18,6 +18,7 @@ import AllBloodDonationRequest from "../pages/Dashboard/AllBloodDonationRequest/
 import AdminRoute from "./AdminRoute/AdminRoute";
 import ContentManagement from "../pages/Dashboard/ContentManagement/ContentManagement";
 import AddBlog from "../pages/Dashboard/AddBlog/AddBlog";
+import VolunteerHome from "../pages/Dashboard/VolunteerHome/VolunteerHome";
 
 const router = createBrowserRouter([
   {
@@ -107,6 +108,11 @@ const router = createBrowserRouter([
       {
         path: "content-management/add-blog",
         element: <AddBlog></AddBlog>,
+      },
+      // volunteer only route
+      {
+        path: "volunteerHome",
+        element: <VolunteerHome></VolunteerHome>,
       },
     ],
   },
