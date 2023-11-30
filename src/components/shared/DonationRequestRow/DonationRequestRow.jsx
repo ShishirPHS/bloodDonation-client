@@ -69,7 +69,7 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
               title: "Status Updated Successfully",
               icon: "success",
             });
-            refetch();
+            refetchPaginationTable();
           }
         });
       }
