@@ -12,6 +12,7 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   padding: 0;
+  background: none;
 }
 
 .navbar ul li a:hover,
