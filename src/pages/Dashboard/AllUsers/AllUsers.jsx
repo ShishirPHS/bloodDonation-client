@@ -24,7 +24,7 @@ const AllUsers = () => {
     queryKey: ["allUsersPaginationTable", currentPage],
     queryFn: async () => {
       const result = await axiosPublic.get(
-        `http://localhost:5000/allUsers/pagination?page=${currentPage}&size=${itemsPerPage}`
+        `/allUsers/pagination?page=${currentPage}&size=${itemsPerPage}`
       );
       return result.data;
     },

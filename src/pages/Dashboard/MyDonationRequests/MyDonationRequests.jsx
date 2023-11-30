@@ -25,7 +25,7 @@ const MyDonationRequests = () => {
     queryKey: ["paginationTable", currentPage],
     queryFn: async () => {
       const result = await axiosPublic.get(
-        `http://localhost:5000/pagination/${user?.email}?page=${currentPage}&size=${itemsPerPage}`
+        `/pagination/${user?.email}?page=${currentPage}&size=${itemsPerPage}`
       );
       return result.data;
     },
