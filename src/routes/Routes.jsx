@@ -21,6 +21,7 @@ import AddBlog from "../pages/Dashboard/AddBlog/AddBlog";
 import VolunteerHome from "../pages/Dashboard/VolunteerHome/VolunteerHome";
 import AllBloodDonation from "../pages/Dashboard/AllBloodDonation/AllBloodDonation";
 import VolunteerRoute from "./VolunteerRoute/VolunteerRoute";
+import AdminOrVolunteerRoute from "./AdminOrVolunteerRoute/AdminOrVolunteerRoute";
 
 const router = createBrowserRouter([
   {
@@ -99,17 +100,22 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
+      // admin or volunteer route
       {
         path: "content-management",
         element: (
-          <AdminRoute>
+          <AdminOrVolunteerRoute>
             <ContentManagement></ContentManagement>
-          </AdminRoute>
+          </AdminOrVolunteerRoute>
         ),
       },
       {
         path: "content-management/add-blog",
-        element: <AddBlog></AddBlog>,
+        element: (
+          <AdminOrVolunteerRoute>
+            <AddBlog></AddBlog>
+          </AdminOrVolunteerRoute>
+        ),
       },
       // volunteer only route
       {
