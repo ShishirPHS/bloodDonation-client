@@ -5,8 +5,10 @@ import BlogTableRow from "../../../components/BlogTableRow/BlogTableRow";
 import { FaFilter } from "react-icons/fa";
 import { useState } from "react";
 import "./ContentManagement.css";
+import useUser from "../../../hooks/useUser";
 
 const ContentManagement = () => {
+  const [userData] = useUser();
   const [filter, setFilter] = useState("all");
 
   const axiosPublic = useAxiosPublic();
@@ -76,8 +78,12 @@ const ContentManagement = () => {
                   <th>Thumbnail Image</th>
                   <th>Blog Content</th>
                   <th>Status</th>
-                  <th>Publish</th>
-                  <th>Delete</th>
+                  {userData?.role !== "volunteer" && (
+                    <>
+                      <th>Publish</th>
+                      <th>Delete</th>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>

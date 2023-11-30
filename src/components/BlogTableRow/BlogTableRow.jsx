@@ -2,10 +2,12 @@ import PropTypes from "prop-types";
 import { RiDeleteBin4Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useUser from "../../hooks/useUser";
 
 const BlogTableRow = ({ blog, idx, refetch }) => {
   const { _id, blogTitle, thumbnailImage, content, status } = blog;
   const axiosPublic = useAxiosPublic();
+  const [userData] = useUser();
 
   const handleBlogDelete = (id) => {
     Swal.fire({
@@ -73,31 +75,35 @@ const BlogTableRow = ({ blog, idx, refetch }) => {
       </td>
       <td>{content.slice(0, 50)}...</td>
       <td>{status}</td>
-      <td>
-        {status === "draft" ? (
-          <button
-            onClick={() => handlePublishUnPublish("published")}
-            className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E] w-[80px]"
-          >
-            Publish
-          </button>
-        ) : (
-          <button
-            onClick={() => handlePublishUnPublish("draft")}
-            className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E] w-[80px]"
-          >
-            Unpublish
-          </button>
-        )}
-      </td>
-      <td className="text-base">
-        <button
-          onClick={() => handleBlogDelete(_id)}
-          className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]"
-        >
-          <RiDeleteBin4Fill></RiDeleteBin4Fill>
-        </button>
-      </td>
+      {userData?.role !== "volunteer" && (
+        <>
+          <td>
+            {status === "draft" ? (
+              <button
+                onClick={() => handlePublishUnPublish("published")}
+                className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E] w-[80px]"
+              >
+                Publish
+              </button>
+            ) : (
+              <button
+                onClick={() => handlePublishUnPublish("draft")}
+                className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E] w-[80px]"
+              >
+                Unpublish
+              </button>
+            )}
+          </td>
+          <td className="text-base">
+            <button
+              onClick={() => handleBlogDelete(_id)}
+              className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]"
+            >
+              <RiDeleteBin4Fill></RiDeleteBin4Fill>
+            </button>
+          </td>
+        </>
+      )}
     </tr>
   );
 };
