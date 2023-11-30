@@ -14,6 +14,7 @@ const AddBlog = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -42,6 +43,7 @@ const AddBlog = () => {
             title: "Blog Created Successfully!",
             icon: "success",
           });
+          reset();
         }
       });
     }
