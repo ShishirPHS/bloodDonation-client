@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import "./Dashboard.css";
 import useUser from "../../hooks/useUser";
+import { IoIosArrowBack } from "react-icons/io";
 
 const Dashboard = () => {
   const [userData] = useUser();
@@ -85,6 +86,14 @@ const Dashboard = () => {
                   </li>
                 </>
               )}
+
+            <div className="h-[1px] w-full bg-white my-4"></div>
+            <li>
+              <NavLink className='flex items-center justify-start' to="/">
+                <IoIosArrowBack className="mr-2"></IoIosArrowBack>
+                <span>Back to Home</span>
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
