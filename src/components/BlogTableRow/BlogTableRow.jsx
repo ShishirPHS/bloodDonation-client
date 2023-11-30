@@ -1,11 +1,33 @@
 import PropTypes from "prop-types";
 import { RiDeleteBin4Fill } from "react-icons/ri";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
-const BlogTableRow = ({ blog, idx }) => {
+const BlogTableRow = ({ blog, idx, refetch }) => {
   const { _id, blogTitle, thumbnailImage, content, status } = blog;
+  const axiosPublic = useAxiosPublic();
 
   const handleBlogDelete = (id) => {
-    console.log("blog delete btn clicked", id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosPublic.delete(`/blogs/${id}`);
+        if (res.data.deletedCount > 0) {
+          Swal.fire({
+            text: "Blog Deleted Successfully",
+            icon: "success",
+          });
+          refetch();
+        }
+      }
+    });
   };
 
   return (
@@ -36,6 +58,7 @@ const BlogTableRow = ({ blog, idx }) => {
 BlogTableRow.propTypes = {
   blog: PropTypes.object,
   idx: PropTypes.number,
+  refetch: PropTypes.func,
 };
 
 export default BlogTableRow;

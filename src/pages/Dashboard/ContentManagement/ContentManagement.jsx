@@ -11,7 +11,7 @@ const ContentManagement = () => {
 
   const axiosPublic = useAxiosPublic();
   // load data for all blogs
-  const { data: allBlogs = [] } = useQuery({
+  const { data: allBlogs = [], refetch } = useQuery({
     queryKey: ["allBlogs"],
     queryFn: async () => {
       const result = await axiosPublic.get("/blogs");
@@ -81,7 +81,12 @@ const ContentManagement = () => {
               </thead>
               <tbody>
                 {filteredBlogs?.map((blog, idx) => (
-                  <BlogTableRow key={idx} blog={blog} idx={idx}></BlogTableRow>
+                  <BlogTableRow
+                    key={idx}
+                    blog={blog}
+                    idx={idx}
+                    refetch={refetch}
+                  ></BlogTableRow>
                 ))}
               </tbody>
             </table>
