@@ -1,0 +1,15 @@
+.filter-btn {
+  background: none !important;
+  border: none;
+  outline: none;
+}
+.filter-btn:hover {
+  background: none !important;
+  outline: none;
+  border: none;
+}
+.filter-btn:focus {
+  background: none !important;
+  outline: none;
+  border: none;
+}
