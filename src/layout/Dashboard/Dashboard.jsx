@@ -69,6 +69,11 @@ const Dashboard = () => {
                     </NavLink>
                   </li>
                   <li>
+                    <NavLink to="/dashboard/allBlood-donation-request">
+                      All Blood Donation Request
+                    </NavLink>
+                  </li>
+                  <li>
                     <NavLink to="/dashboard/create-donation-requests">
                       Create Donation Requests
                     </NavLink>
