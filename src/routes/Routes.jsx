@@ -22,6 +22,7 @@ import VolunteerHome from "../pages/Dashboard/VolunteerHome/VolunteerHome";
 import AllBloodDonation from "../pages/Dashboard/AllBloodDonation/AllBloodDonation";
 import VolunteerRoute from "./VolunteerRoute/VolunteerRoute";
 import AdminOrVolunteerRoute from "./AdminOrVolunteerRoute/AdminOrVolunteerRoute";
+import Blog from "../pages/Blog/Blog";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/blog",
+        element: <Blog></Blog>,
       },
     ],
   },
