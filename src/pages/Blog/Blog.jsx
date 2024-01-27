@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import BlogCard from "../../components/BlogCard/BlogCard";
 
 const Blog = () => {
   const axiosPublic = useAxiosPublic();
@@ -14,7 +15,13 @@ const Blog = () => {
 
   console.log(publishedBlogs);
 
-  return <div></div>;
+  return (
+    <div className="container mx-auto py-24">
+      <h3 className="text-center font-bold text-4xl font-montserrat mb-14">
+        Blogs
+      </h3>
+    </div>
+  );
 };
 
 export default Blog;
