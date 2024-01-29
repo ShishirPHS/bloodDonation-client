@@ -14,9 +14,16 @@ const BlogCard = ({ blog }) => {
   const slicedParagraph = words.slice(0, wordsPerParagraph).join(" ");
 
   return (
-    <div className="border rounded-xl flex flex-col">
+    <div
+      style={{ boxShadow: "0px 4px 10px 5px rgba(38,35,35,0.3)" }}
+      className="border rounded-xl flex flex-col"
+    >
       <div className="flex-grow">
-        <img className="w-full h-[280px]" src={thumbnailImage} alt="" />
+        <img
+          className="w-full h-[280px] rounded-tr-xl rounded-tl-xl"
+          src={thumbnailImage}
+          alt=""
+        />
         <h3 className="text-3xl p-5 pb-0 font-bold font-montserrat mb-7 text-[#111111]">
           {blogTitle}
         </h3>
