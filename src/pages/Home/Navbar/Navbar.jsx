@@ -12,7 +12,7 @@ const Navbar = () => {
   const handleLogOut = () => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't to Log Out!",
+      text: "You want to Log Out!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
