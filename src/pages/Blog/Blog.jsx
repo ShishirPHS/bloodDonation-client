@@ -1,19 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import BlogCard from "../../components/BlogCard/BlogCard";
+import usePublishedBlogs from "../../hooks/usePublishedBlogs";
 
 const Blog = () => {
-  const axiosPublic = useAxiosPublic();
-  // load published blogs
-  const { data: publishedBlogs = [] } = useQuery({
-    queryKey: ["publishedBlogs"],
-    queryFn: async () => {
-      const result = await axiosPublic.get("/publishedBlogs");
-      return result.data;
-    },
-  });
-
-  // console.log(publishedBlogs);
+  const [publishedBlogs] = usePublishedBlogs();
 
   return (
     <div className="container mx-auto py-24">
