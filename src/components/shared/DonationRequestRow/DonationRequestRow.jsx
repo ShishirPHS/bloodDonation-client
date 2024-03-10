@@ -91,7 +91,7 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
         <>
           <td className="text-base">
             <Link to={`/dashboard/updateRequest/${_id}`}>
-              <button className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]">
+              <button className="bg-[#EF3D32] text-white p-[15px] rounded-md hover:bg-[#4E4E4E]">
                 <LuFileEdit></LuFileEdit>
               </button>
             </Link>
@@ -99,7 +99,7 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
           <td className="text-base">
             <button
               onClick={() => handleDonationDelete(_id)}
-              className="bg-[#EF3D32] text-white p-2 rounded-md hover:bg-[#4E4E4E]"
+              className="bg-[#EF3D32] text-white p-[15px] rounded-md hover:bg-[#4E4E4E]"
             >
               <RiDeleteBin4Fill></RiDeleteBin4Fill>
             </button>

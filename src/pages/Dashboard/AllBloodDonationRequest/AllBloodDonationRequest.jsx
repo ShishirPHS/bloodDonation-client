@@ -58,7 +58,7 @@ const AllBloodDonationRequest = () => {
   return (
     <div>
       <h2 className="font-montserrat font-bold text-3xl text-center mt-5 mb-10">
-        All Blood Donation Request
+        All Blood Donation Requests
       </h2>
       <div>
         <div>
