@@ -165,7 +165,7 @@ const CreateDonationRequests = () => {
             <input
               className="input input-bordered"
               type="text"
-              placeholder="Hospital Name"
+              placeholder="Hospital Name(Where the donor will go to donate blood)"
               {...register("hospitalName", { required: true })}
             />
             {errors.hospitalName?.type === "required" && (
@@ -179,7 +179,7 @@ const CreateDonationRequests = () => {
             <input
               className="input input-bordered"
               type="text"
-              placeholder="Full Address"
+              placeholder="Full Address(Ex: Zahir Raihan Rd, Dhaka)"
               {...register("fullAddress", { required: true })}
             />
             {errors.fullAddress?.type === "required" && (
@@ -227,7 +227,7 @@ const CreateDonationRequests = () => {
             <input
               className="input input-bordered"
               type="text"
-              placeholder="Request Message(write why you need blood)"
+              placeholder="Request Message(Write why you need blood)"
               {...register("requestMessage", { required: true })}
             />
             {errors.requestMessage?.type === "required" && (

@@ -144,7 +144,9 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
                 </>
               )}
             {donationStatus === "done" && (
-              <li className="hover:text-[#EF3D32]"> Already Done</li>
+              <li className="hover:text-[#EF3D32] font-semibold">
+                Already Done
+              </li>
             )}
           </ul>
         </details>
