@@ -86,7 +86,11 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
       <td>{donationDate}</td>
       <td>{donationTime}</td>
       <td>{donationStatus}</td>
-      <td></td>
+      <td>
+        {request?.donorName}
+        <br />
+        {request?.donorEmail}
+      </td>
       {userData.role !== "volunteer" && (
         <>
           <td className="text-base">
