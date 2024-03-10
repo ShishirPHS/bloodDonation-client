@@ -106,35 +106,33 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
           </td>
         </>
       )}
-      {userData.role === "volunteer" && (
-        <td>
-          <details className="dropdown dropdown-left dropdown-end">
-            <summary className="btn bg-[#EF3D32] text-white py-2 my-1 px-4 rounded-md hover:bg-[#4E4E4E]">
-              <BsThreeDotsVertical></BsThreeDotsVertical>
-            </summary>
-            <ul className="action-btn p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 top-[50%]">
-              <li>
-                <button onClick={() => handleStatusChange("pending")}>
-                  Pending
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleStatusChange("inprogress")}>
-                  In Progress
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleStatusChange("done")}>Done</button>
-              </li>
-              <li>
-                <button onClick={() => handleStatusChange("canceled")}>
-                  Canceled
-                </button>
-              </li>
-            </ul>
-          </details>
-        </td>
-      )}
+      <td>
+        <details className="dropdown dropdown-left dropdown-end">
+          <summary className="btn bg-[#EF3D32] text-white py-2 my-1 px-4 rounded-md hover:bg-[#4E4E4E]">
+            <BsThreeDotsVertical></BsThreeDotsVertical>
+          </summary>
+          <ul className="action-btn p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 top-[50%]">
+            <li>
+              <button onClick={() => handleStatusChange("pending")}>
+                Pending
+              </button>
+            </li>
+            <li>
+              <button onClick={() => handleStatusChange("inprogress")}>
+                In Progress
+              </button>
+            </li>
+            <li>
+              <button onClick={() => handleStatusChange("done")}>Done</button>
+            </li>
+            <li>
+              <button onClick={() => handleStatusChange("canceled")}>
+                Canceled
+              </button>
+            </li>
+          </ul>
+        </details>
+      </td>
     </tr>
   );
 };

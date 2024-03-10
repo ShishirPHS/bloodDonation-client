@@ -60,7 +60,7 @@ const AllBloodDonation = () => {
   return (
     <div>
       <h2 className="font-montserrat font-bold text-3xl text-center mt-5 mb-10">
-        All Blood Donation Request
+        All Blood Donation Requests
       </h2>
       <div>
         <div>
@@ -112,7 +112,7 @@ const AllBloodDonation = () => {
                       <th>Delete</th>
                     </>
                   )}
-                  {userData.role === "volunteer" && <th>Update Status</th>}
+                  <th>Update Status</th>
                 </tr>
               </thead>
               <tbody>

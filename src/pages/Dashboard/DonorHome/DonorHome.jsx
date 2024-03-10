@@ -21,7 +21,7 @@ const DonorHome = () => {
           <h3 className="mb-10 text-3xl font-montserrat font-bold text-center">
             Your Recent Requests
           </h3>
-          <div className="overflow-x-auto bg-white p-4">
+          <div className="overflow-x-auto bg-white p-4 py-10">
             <table className="table table-xs">
               <thead className="bg-[#EFE9E9]">
                 <tr>
@@ -34,6 +34,7 @@ const DonorHome = () => {
                   <th>Donor Information</th>
                   <th>Edit</th>
                   <th>Delete</th>
+                  <th>Update Status</th>
                 </tr>
               </thead>
               <tbody>

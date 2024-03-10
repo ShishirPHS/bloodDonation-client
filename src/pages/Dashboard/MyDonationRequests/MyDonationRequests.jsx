@@ -108,7 +108,7 @@ const MyDonationRequests = () => {
                 </ul>
               </details>
             </div>
-            <div className="overflow-x-auto bg-white p-4">
+            <div className="overflow-x-auto bg-white p-4 py-10">
               <table className="table table-xs">
                 <thead className="bg-[#EFE9E9]">
                   <tr>
@@ -121,6 +121,7 @@ const MyDonationRequests = () => {
                     <th>Donor Information</th>
                     <th>Edit</th>
                     <th>Delete</th>
+                    <th>Update Status</th>
                   </tr>
                 </thead>
                 <tbody>
