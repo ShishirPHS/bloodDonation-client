@@ -112,24 +112,36 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
             <BsThreeDotsVertical></BsThreeDotsVertical>
           </summary>
           <ul className="action-btn p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 top-[50%]">
-            <li>
-              <button onClick={() => handleStatusChange("pending")}>
-                Pending
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleStatusChange("inprogress")}>
-                In Progress
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleStatusChange("done")}>Done</button>
-            </li>
-            <li>
-              <button onClick={() => handleStatusChange("canceled")}>
-                Canceled
-              </button>
-            </li>
+            {(donationStatus === "pending" || donationStatus === "canceled") &&
+              donationStatus !== "inprogress" &&
+              donationStatus !== "done" && (
+                <>
+                  <li>
+                    <button onClick={() => handleStatusChange("inprogress")}>
+                      In Progress
+                    </button>
+                  </li>
+                </>
+              )}
+            {donationStatus === "inprogress" &&
+              donationStatus !== "done" &&
+              donationStatus !== "canceled" && (
+                <>
+                  <li>
+                    <button onClick={() => handleStatusChange("done")}>
+                      Done
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => handleStatusChange("canceled")}>
+                      Canceled
+                    </button>
+                  </li>
+                </>
+              )}
+            {donationStatus === "done" && (
+              <li className="hover:text-[#EF3D32]"> Already Done</li>
+            )}
           </ul>
         </details>
       </td>
