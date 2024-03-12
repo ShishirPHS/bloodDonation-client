@@ -1,12 +1,39 @@
 import { IoSearchSharp } from "react-icons/io5";
 import useAddress from "../../hooks/useAddress";
+import { useState } from "react";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Search = () => {
   const [district, upazila] = useAddress();
+  const axiosPublic = useAxiosPublic();
 
-  const handleSubmit = (e) => {
+  const [searchCriteria, setSearchCriteria] = useState({
+    bloodGroup: "",
+    district: "",
+    upazila: "",
+  });
+
+  const [searchResults, setSearchResults] = useState([]);
+
+  const setInputChange = (e) => {
+    setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("form submitted");
+
+    console.log(searchCriteria);
+
+    try {
+      const res = await axiosPublic.get("/donors/search", {
+        params: searchCriteria,
+      });
+      console.log(res);
+      setSearchResults(res.data);
+    } catch (error) {
+      console.error("Error searching donors:", error);
+    }
   };
 
   return (
@@ -18,13 +45,14 @@ const Search = () => {
           <form className=" w-full text-white" onSubmit={handleSubmit}>
             <div className="grid grid-cols-3 gap-3 px-5">
               <div>
-                <label className="label" htmlFor="blGroup">
+                <label className="label" htmlFor="bloodGroup">
                   <span className="label-text">Blood Group</span>
                 </label>
                 <select
                   required
                   className="text-lg text-black select select-bordered w-full"
-                  name="blGroup"
+                  name="bloodGroup"
+                  onChange={setInputChange}
                 >
                   <option value="">Select Blood Group</option>
                   <option value="A+">A+</option>
@@ -38,34 +66,36 @@ const Search = () => {
                 </select>
               </div>
               <div>
-                <label className="label" htmlFor="dist">
+                <label className="label" htmlFor="district">
                   <span className="label-text">District</span>
                 </label>
                 <select
                   required
                   className="text-lg text-black select select-bordered w-full"
-                  name="dist"
+                  name="district"
+                  onChange={setInputChange}
                 >
-                  <option value="all">All</option>
+                  <option value="">Select District</option>
                   {district?.map((singleDistrict, idx) => (
-                    <option key={idx} value={singleDistrict}>
+                    <option key={idx} value={singleDistrict.name}>
                       {singleDistrict.name}
                     </option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="label" htmlFor="upa">
+                <label className="label" htmlFor="upazila">
                   <span className="label-text">Upazila</span>
                 </label>
                 <select
                   required
                   className="text-lg text-black select select-bordered w-full"
-                  name="upa"
+                  name="upazila"
+                  onChange={setInputChange}
                 >
-                  <option value="all">All</option>
+                  <option value="">Select Upazila</option>
                   {upazila?.map((singleUpazila, idx) => (
-                    <option key={idx} value={singleUpazila}>
+                    <option key={idx} value={singleUpazila.name}>
                       {singleUpazila.name}
                     </option>
                   ))}
@@ -79,6 +109,23 @@ const Search = () => {
               <IoSearchSharp className="text-lg"></IoSearchSharp> Search
             </button>
           </form>
+        </div>
+        {/* donor list */}
+        <div>
+          {searchResults.length > 0 ? (
+            <ul>
+              {searchResults.map((donor, index) => (
+                <li key={index}>
+                  {/* Render donor information here */}
+                  <div>Name: {donor.name}</div>
+                  <div>Email: {donor.email}</div>
+                  {/* Add more donor information as needed */}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No donors found.</p>
+          )}
         </div>
       </div>
     </div>
