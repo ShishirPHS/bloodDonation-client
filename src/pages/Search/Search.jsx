@@ -2,8 +2,8 @@ import { IoSearchSharp } from "react-icons/io5";
 import useAddress from "../../hooks/useAddress";
 import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { useQuery } from "@tanstack/react-query";
 import DonorCard from "../../components/DonorCard/DonorCard";
+import AllDonors from "./AllDonors/AllDonors";
 
 const Search = () => {
   const [district, upazila] = useAddress();
@@ -21,15 +21,6 @@ const Search = () => {
   const setInputChange = (e) => {
     setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value });
   };
-
-  // load all donors
-  const { data: allDonors = [] } = useQuery({
-    queryKey: ["allDonors"],
-    queryFn: async () => {
-      const res = await axiosPublic.get("/allDonors");
-      return res.data;
-    },
-  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -122,6 +113,7 @@ const Search = () => {
         <div>
           {!showAllDonors ? (
             <>
+              {/* display searched donor */}
               {searchResults.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {searchResults.map((donor) => (
@@ -134,22 +126,8 @@ const Search = () => {
                 </h2>
               )}
             </>
-          ) : allDonors.length > 0 ? (
-            // display all donors as default
-            <>
-              <h2 className="text-center font-bold text-xl mb-14">
-                All Donors
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {allDonors.map((donor) => (
-                  <DonorCard key={donor._id} donor={donor}></DonorCard>
-                ))}
-              </div>
-            </>
           ) : (
-            <h2 className="text-center font-semibold py-10">
-              No donors found.
-            </h2>
+            <AllDonors></AllDonors>
           )}
         </div>
       </div>
