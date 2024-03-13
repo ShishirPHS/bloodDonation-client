@@ -123,9 +123,11 @@ const Search = () => {
           {!showAllDonors ? (
             <>
               {searchResults.length > 0 ? (
-                searchResults.map((donor) => (
-                  <DonorCard key={donor._id} donor={donor}></DonorCard>
-                ))
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {searchResults.map((donor) => (
+                    <DonorCard key={donor._id} donor={donor}></DonorCard>
+                  ))}
+                </div>
               ) : (
                 <h2 className="text-center font-semibold py-10">
                   No donors found.
@@ -135,8 +137,10 @@ const Search = () => {
           ) : allDonors.length > 0 ? (
             // display all donors as default
             <>
-              <h2 className="text-center font-bold text-xl">All Donors</h2>
-              <div>
+              <h2 className="text-center font-bold text-xl mb-14">
+                All Donors
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {allDonors.map((donor) => (
                   <DonorCard key={donor._id} donor={donor}></DonorCard>
                 ))}
