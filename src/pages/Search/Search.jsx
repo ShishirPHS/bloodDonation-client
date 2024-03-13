@@ -123,7 +123,7 @@ const Search = () => {
           {!showAllDonors ? (
             <>
               {searchResults.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {searchResults.map((donor) => (
                     <DonorCard key={donor._id} donor={donor}></DonorCard>
                   ))}
@@ -140,7 +140,7 @@ const Search = () => {
               <h2 className="text-center font-bold text-xl mb-14">
                 All Donors
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {allDonors.map((donor) => (
                   <DonorCard key={donor._id} donor={donor}></DonorCard>
                 ))}
