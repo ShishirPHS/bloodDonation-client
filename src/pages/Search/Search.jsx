@@ -15,6 +15,7 @@ const Search = () => {
   });
 
   const [searchResults, setSearchResults] = useState([]);
+  const [showAllDonors, setShowAllDonors] = useState(true);
 
   const setInputChange = (e) => {
     setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value });
@@ -31,16 +32,14 @@ const Search = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form submitted");
-
-    console.log(searchCriteria);
 
     try {
       const res = await axiosPublic.get("/donors/search", {
         params: searchCriteria,
       });
-      console.log(res);
+
       setSearchResults(res.data);
+      setShowAllDonors(false);
     } catch (error) {
       console.error("Error searching donors:", error);
     }
@@ -120,28 +119,34 @@ const Search = () => {
         </div>
         {/* donor list */}
         <div>
-          {searchResults.length > 0 ? (
+          {!showAllDonors ? (
             <>
-              {searchResults.map((donor, index) => (
-                <div key={index}>
-                  <div>Name: {donor.name}</div>
-                  <div>Email: {donor.email}</div>
-                </div>
-              ))}
+              {searchResults.length > 0 ? (
+                searchResults.map((donor) => (
+                  <div key={donor._id}>
+                    <div>Name: {donor.name}</div>
+                    <div>Email: {donor.email}</div>
+                  </div>
+                ))
+              ) : (
+                <h2>No donors found.</h2>
+              )}
             </>
-          ) : (
+          ) : allDonors.length > 0 ? (
             // display all donors as default
             <>
               <h2 className="text-center font-bold text-2xl">All Donors</h2>
               <div>
-                {allDonors.map((donor, index) => (
-                  <div key={index}>
+                {allDonors.map((donor) => (
+                  <div key={donor._id}>
                     <div>Name: {donor.name}</div>
                     <div>Email: {donor.email}</div>
                   </div>
                 ))}
               </div>
             </>
+          ) : (
+            <h2>No donors found.</h2>
           )}
         </div>
       </div>
