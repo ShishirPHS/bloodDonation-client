@@ -9,14 +9,15 @@ const Search = () => {
   const [district, upazila] = useAddress();
   const axiosPublic = useAxiosPublic();
 
+  const [searchResults, setSearchResults] = useState([]);
+  const [showAllDonors, setShowAllDonors] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [searchCriteria, setSearchCriteria] = useState({
     bloodGroup: "",
     district: "",
     upazila: "",
   });
-
-  const [searchResults, setSearchResults] = useState([]);
-  const [showAllDonors, setShowAllDonors] = useState(true);
 
   const setInputChange = (e) => {
     setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value });
@@ -24,6 +25,7 @@ const Search = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const res = await axiosPublic.get("/donors/search", {
@@ -34,6 +36,8 @@ const Search = () => {
       setShowAllDonors(false);
     } catch (error) {
       console.error("Error searching donors:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -111,23 +115,31 @@ const Search = () => {
         </div>
         {/* donor list */}
         <div>
-          {!showAllDonors ? (
+          {isLoading ? (
+            <div className="text-center py-10">
+              <span className="loading loading-spinner loading-lg"></span>
+            </div>
+          ) : (
             <>
-              {/* display searched donor */}
-              {searchResults.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {searchResults.map((donor) => (
-                    <DonorCard key={donor._id} donor={donor}></DonorCard>
-                  ))}
-                </div>
+              {!showAllDonors ? (
+                <>
+                  {/* display searched donor */}
+                  {searchResults.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      {searchResults.map((donor) => (
+                        <DonorCard key={donor._id} donor={donor}></DonorCard>
+                      ))}
+                    </div>
+                  ) : (
+                    <h2 className="text-center font-semibold py-10">
+                      No donors found.
+                    </h2>
+                  )}
+                </>
               ) : (
-                <h2 className="text-center font-semibold py-10">
-                  No donors found.
-                </h2>
+                <AllDonors></AllDonors>
               )}
             </>
-          ) : (
-            <AllDonors></AllDonors>
           )}
         </div>
       </div>
