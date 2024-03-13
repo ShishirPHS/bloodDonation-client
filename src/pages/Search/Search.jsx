@@ -3,6 +3,7 @@ import useAddress from "../../hooks/useAddress";
 import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
+import DonorCard from "../../components/DonorCard/DonorCard";
 
 const Search = () => {
   const [district, upazila] = useAddress();
@@ -123,30 +124,28 @@ const Search = () => {
             <>
               {searchResults.length > 0 ? (
                 searchResults.map((donor) => (
-                  <div key={donor._id}>
-                    <div>Name: {donor.name}</div>
-                    <div>Email: {donor.email}</div>
-                  </div>
+                  <DonorCard key={donor._id} donor={donor}></DonorCard>
                 ))
               ) : (
-                <h2>No donors found.</h2>
+                <h2 className="text-center font-semibold py-10">
+                  No donors found.
+                </h2>
               )}
             </>
           ) : allDonors.length > 0 ? (
             // display all donors as default
             <>
-              <h2 className="text-center font-bold text-2xl">All Donors</h2>
+              <h2 className="text-center font-bold text-xl">All Donors</h2>
               <div>
                 {allDonors.map((donor) => (
-                  <div key={donor._id}>
-                    <div>Name: {donor.name}</div>
-                    <div>Email: {donor.email}</div>
-                  </div>
+                  <DonorCard key={donor._id} donor={donor}></DonorCard>
                 ))}
               </div>
             </>
           ) : (
-            <h2>No donors found.</h2>
+            <h2 className="text-center font-semibold py-10">
+              No donors found.
+            </h2>
           )}
         </div>
       </div>
