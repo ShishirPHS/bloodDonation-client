@@ -51,8 +51,6 @@ const Registration = () => {
     });
 
     if (res.data.success) {
-      console.log("img uploaded to the imageBB");
-
       const user = {
         name,
         email,
@@ -65,9 +63,7 @@ const Registration = () => {
       };
 
       createUser(email, password)
-        .then((result) => {
-          console.log(result.user);
-
+        .then(() => {
           updateUserInfo(name, user.photo);
 
           axiosPublic.post("/users", user).then((res) => {
@@ -82,15 +78,12 @@ const Registration = () => {
           });
         })
         .catch((error) => {
-          console.log(error);
           Swal.fire({
             title: error.message,
             icon: "error",
           });
         });
     }
-
-    console.log(data);
   };
 
   return (
