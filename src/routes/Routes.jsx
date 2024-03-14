@@ -24,6 +24,7 @@ import VolunteerRoute from "./VolunteerRoute/VolunteerRoute";
 import AdminOrVolunteerRoute from "./AdminOrVolunteerRoute/AdminOrVolunteerRoute";
 import Blog from "../pages/Blog/Blog";
 import Search from "../pages/Search/Search";
+import DonationRequests from "../pages/DonationRequests/DonationRequests";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <Search></Search>,
+      },
+      {
+        path: "/donation-requests",
+        element: <DonationRequests></DonationRequests>,
       },
     ],
   },
