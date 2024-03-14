@@ -46,7 +46,6 @@ const CreateDonationRequests = () => {
   ];
 
   const onSubmit = async (data) => {
-    console.log(data);
     const donation = {
       requesterName: data.requesterName,
       requesterEmail: data.requesterEmail,
@@ -61,7 +60,6 @@ const CreateDonationRequests = () => {
       donationStatus: "pending",
     };
     axiosPublic.post("/create-donation", donation).then((res) => {
-      console.log(res.data);
       if (res.data.insertedId) {
         Swal.fire({
           text: "Donation request created Successfully",

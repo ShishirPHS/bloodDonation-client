@@ -59,7 +59,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/donation-requests/details/:id",
-        element: <BloodRequestDetails></BloodRequestDetails>,
+        element: (
+          <PrivateRoute>
+            <BloodRequestDetails></BloodRequestDetails>
+          </PrivateRoute>
+        ),
       },
     ],
   },
