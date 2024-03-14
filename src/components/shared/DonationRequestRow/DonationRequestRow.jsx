@@ -7,6 +7,7 @@ import useMyDonationRequests from "../../../hooks/useMyDonationRequests";
 import { Link, useLocation } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import DonationRequestsViewBtn from "../../DonationRequestsViewBtn/DonationRequestsViewBtn";
 
 const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
   const [, refetch] = useMyDonationRequests();
@@ -22,8 +23,6 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
   const [userData] = useUser();
   const axiosPublic = useAxiosPublic();
   const location = useLocation();
-
-  console.log(location.pathname);
 
   const handleDonationDelete = (id) => {
     Swal.fire({
@@ -121,8 +120,7 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
                 <BsThreeDotsVertical></BsThreeDotsVertical>
               </summary>
               <ul className="action-btn p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 top-[50%]">
-                {(donationStatus === "pending" ||
-                  donationStatus === "canceled") &&
+                {donationStatus === "pending" &&
                   donationStatus !== "inprogress" &&
                   donationStatus !== "done" && (
                     <>
@@ -156,11 +154,19 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
                     Already Done
                   </li>
                 )}
+                {donationStatus === "canceled" && (
+                  <li className="hover:text-[#EF3D32] font-semibold">
+                    This Donation Request is canceled
+                  </li>
+                )}
               </ul>
             </details>
           </td>
         </>
       )}
+      <td className="flex justify-center">
+        <DonationRequestsViewBtn></DonationRequestsViewBtn>
+      </td>
     </tr>
   );
 };

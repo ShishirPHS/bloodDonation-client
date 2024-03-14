@@ -107,6 +107,7 @@ const AllBloodDonationRequest = () => {
                   <th>Edit</th>
                   <th>Delete</th>
                   <th>Update Status</th>
+                  <th className="text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
