@@ -4,7 +4,7 @@ import { RiDeleteBin4Fill } from "react-icons/ri";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import useMyDonationRequests from "../../../hooks/useMyDonationRequests";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
@@ -21,6 +21,9 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
   } = request;
   const [userData] = useUser();
   const axiosPublic = useAxiosPublic();
+  const location = useLocation();
+
+  console.log(location.pathname);
 
   const handleDonationDelete = (id) => {
     Swal.fire({
@@ -85,72 +88,79 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
       </td>
       <td>{donationDate}</td>
       <td>{donationTime}</td>
-      <td>{donationStatus}</td>
-      <td>
-        {request?.donorName}
-        <br />
-        {request?.donorEmail}
-      </td>
-      {userData.role !== "volunteer" && (
+      {location.pathname !== "/donation-requests" && (
         <>
-          <td className="text-base">
-            <Link to={`/dashboard/updateRequest/${_id}`}>
-              <button className="bg-[#EF3D32] text-white p-[15px] rounded-md hover:bg-[#4E4E4E]">
-                <LuFileEdit></LuFileEdit>
-              </button>
-            </Link>
+          <td>{donationStatus}</td>
+          <td>
+            {request?.donorName}
+            <br />
+            {request?.donorEmail}
           </td>
-          <td className="text-base">
-            <button
-              onClick={() => handleDonationDelete(_id)}
-              className="bg-[#EF3D32] text-white p-[15px] rounded-md hover:bg-[#4E4E4E]"
-            >
-              <RiDeleteBin4Fill></RiDeleteBin4Fill>
-            </button>
+          {userData.role !== "volunteer" && (
+            <>
+              <td className="text-base">
+                <Link to={`/dashboard/updateRequest/${_id}`}>
+                  <button className="bg-[#EF3D32] text-white p-[15px] rounded-md hover:bg-[#4E4E4E]">
+                    <LuFileEdit></LuFileEdit>
+                  </button>
+                </Link>
+              </td>
+              <td className="text-base">
+                <button
+                  onClick={() => handleDonationDelete(_id)}
+                  className="bg-[#EF3D32] text-white p-[15px] rounded-md hover:bg-[#4E4E4E]"
+                >
+                  <RiDeleteBin4Fill></RiDeleteBin4Fill>
+                </button>
+              </td>
+            </>
+          )}
+          <td>
+            <details className="dropdown dropdown-left dropdown-end">
+              <summary className="btn bg-[#EF3D32] text-white py-2 my-1 px-4 rounded-md hover:bg-[#4E4E4E]">
+                <BsThreeDotsVertical></BsThreeDotsVertical>
+              </summary>
+              <ul className="action-btn p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 top-[50%]">
+                {(donationStatus === "pending" ||
+                  donationStatus === "canceled") &&
+                  donationStatus !== "inprogress" &&
+                  donationStatus !== "done" && (
+                    <>
+                      <li>
+                        <button
+                          onClick={() => handleStatusChange("inprogress")}
+                        >
+                          In Progress
+                        </button>
+                      </li>
+                    </>
+                  )}
+                {donationStatus === "inprogress" &&
+                  donationStatus !== "done" &&
+                  donationStatus !== "canceled" && (
+                    <>
+                      <li>
+                        <button onClick={() => handleStatusChange("done")}>
+                          Done
+                        </button>
+                      </li>
+                      <li>
+                        <button onClick={() => handleStatusChange("canceled")}>
+                          Canceled
+                        </button>
+                      </li>
+                    </>
+                  )}
+                {donationStatus === "done" && (
+                  <li className="hover:text-[#EF3D32] font-semibold">
+                    Already Done
+                  </li>
+                )}
+              </ul>
+            </details>
           </td>
         </>
       )}
-      <td>
-        <details className="dropdown dropdown-left dropdown-end">
-          <summary className="btn bg-[#EF3D32] text-white py-2 my-1 px-4 rounded-md hover:bg-[#4E4E4E]">
-            <BsThreeDotsVertical></BsThreeDotsVertical>
-          </summary>
-          <ul className="action-btn p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 top-[50%]">
-            {(donationStatus === "pending" || donationStatus === "canceled") &&
-              donationStatus !== "inprogress" &&
-              donationStatus !== "done" && (
-                <>
-                  <li>
-                    <button onClick={() => handleStatusChange("inprogress")}>
-                      In Progress
-                    </button>
-                  </li>
-                </>
-              )}
-            {donationStatus === "inprogress" &&
-              donationStatus !== "done" &&
-              donationStatus !== "canceled" && (
-                <>
-                  <li>
-                    <button onClick={() => handleStatusChange("done")}>
-                      Done
-                    </button>
-                  </li>
-                  <li>
-                    <button onClick={() => handleStatusChange("canceled")}>
-                      Canceled
-                    </button>
-                  </li>
-                </>
-              )}
-            {donationStatus === "done" && (
-              <li className="hover:text-[#EF3D32] font-semibold">
-                Already Done
-              </li>
-            )}
-          </ul>
-        </details>
-      </td>
     </tr>
   );
 };
