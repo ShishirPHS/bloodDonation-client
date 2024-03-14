@@ -25,6 +25,7 @@ import AdminOrVolunteerRoute from "./AdminOrVolunteerRoute/AdminOrVolunteerRoute
 import Blog from "../pages/Blog/Blog";
 import Search from "../pages/Search/Search";
 import DonationRequests from "../pages/DonationRequests/DonationRequests";
+import BloodRequestDetails from "../pages/BloodRequestDetails/BloodRequestDetails";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "/donation-requests",
         element: <DonationRequests></DonationRequests>,
+      },
+      {
+        path: "/donation-requests/details/:id",
+        element: <BloodRequestDetails></BloodRequestDetails>,
       },
     ],
   },

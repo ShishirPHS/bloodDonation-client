@@ -165,7 +165,7 @@ const DonationRequestRow = ({ request, idx, refetchPaginationTable }) => {
         </>
       )}
       <td className="flex justify-center">
-        <DonationRequestsViewBtn></DonationRequestsViewBtn>
+        <DonationRequestsViewBtn id={_id}></DonationRequestsViewBtn>
       </td>
     </tr>
   );
