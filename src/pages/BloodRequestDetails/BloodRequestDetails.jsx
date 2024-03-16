@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import BloodDonateModal from "../../components/BloodDonateModal/BloodDonateModal";
 
 const BloodRequestDetails = () => {
   const { id } = useParams();
@@ -82,6 +83,10 @@ const BloodRequestDetails = () => {
             </div>
           </div>
         )}
+        {/* blood donate modal */}
+        <div className="mt-12 flex justify-center">
+          <BloodDonateModal></BloodDonateModal>
+        </div>
       </div>
     </div>
   );
