@@ -2,10 +2,20 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import BloodDonateModal from "../../components/BloodDonateModal/BloodDonateModal";
+import { useState } from "react";
 
 const BloodRequestDetails = () => {
   const { id } = useParams();
   const axiosPublic = useAxiosPublic();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   // load specific donation request data
   const { data: donationRequestData = {}, isLoading } = useQuery({
@@ -89,7 +99,18 @@ const BloodRequestDetails = () => {
             </div>
             {/* blood donate modal */}
             <div className="mt-12 flex justify-center">
-              <BloodDonateModal></BloodDonateModal>
+              <button
+                className="bg-[#EF3D32] px-9 py-4 text-white hover:bg-[#4E4E4E] transition-all duration-500 ease-in-out"
+                onClick={openModal}
+              >
+                Donate
+              </button>
+              {isModalOpen && (
+                <BloodDonateModal
+                  id={id}
+                  closeModal={closeModal}
+                ></BloodDonateModal>
+              )}
             </div>
           </>
         )}
