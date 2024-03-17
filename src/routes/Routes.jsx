@@ -26,6 +26,7 @@ import Blog from "../pages/Blog/Blog";
 import Search from "../pages/Search/Search";
 import DonationRequests from "../pages/DonationRequests/DonationRequests";
 import BloodRequestDetails from "../pages/BloodRequestDetails/BloodRequestDetails";
+import Funding from "../pages/Funding/Funding";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <BloodRequestDetails></BloodRequestDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/funding",
+        element: (
+          <PrivateRoute>
+            <Funding></Funding>
           </PrivateRoute>
         ),
       },
