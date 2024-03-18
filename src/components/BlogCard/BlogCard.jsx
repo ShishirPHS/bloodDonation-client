@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { FaAnglesRight } from "react-icons/fa6";
+import "./BlogCard.css";
 
 const BlogCard = ({ blog }) => {
   const { thumbnailImage, blogTitle, content } = blog;
@@ -14,10 +15,7 @@ const BlogCard = ({ blog }) => {
   const slicedParagraph = words.slice(0, wordsPerParagraph).join(" ");
 
   return (
-    <div
-      style={{ boxShadow: "0px 4px 10px 5px rgba(38,35,35,0.3)" }}
-      className="border rounded-xl flex flex-col"
-    >
+    <div className="blogCardShadow rounded-xl flex flex-col">
       <div className="flex-grow">
         <img
           className="w-full h-[280px] rounded-tr-xl rounded-tl-xl"
