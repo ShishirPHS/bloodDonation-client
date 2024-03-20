@@ -1,9 +1,9 @@
-import { PaymentElement } from "@stripe/react-stripe-js";
+import { CardElement } from "@stripe/react-stripe-js";
 
 const CheckoutForm = () => {
   return (
     <form>
-      <PaymentElement />
+      <CardElement />
       <button>Submit</button>
     </form>
   );
